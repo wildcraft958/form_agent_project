@@ -5,6 +5,7 @@ from src.html_converter import convert_html_to_json
 from src.JSON_converter import convert_json_to_html
 from src.llm_handler import LLMHandler
 from src.chat_history import ChatHistoryManager
+from src.form_processor import FormProcessor
 
 # Load environment variables first
 load_dotenv()
@@ -82,26 +83,13 @@ def main():
             model_name=os.getenv("MODEL_NAME")  # Get specific model from env
         )
 
-        # Step 4: Process form with LLM
-        print(f"\n=== Processing Form with {model_type.upper()} ===")
-        user_query = os.getenv("USER_QUERY", "Please fill out this medical form with appropriate information")
+        # Initialize the form processor
+        form_processor = FormProcessor(llm_handler)
+        form_processor.load_form(form_json)
 
-        filled_form = llm_handler.process_form(form_json, user_query=user_query)
-        
-        # Access values safely
-        for field, info in filled_form.items():
-            if isinstance(info, dict):
-                value = info.get("value", "")
-            else:
-                value = ""  # Handle simple format case
-            print(f"{field}: {value}")
-        
-        if not any(field.get('value') for field in filled_form.values()):
-            print("\033[91mWarning: Form fields not populated properly\033[0m")
-            # Implement additional error handling
-
-        if not filled_form:
-            raise RuntimeError("Form processing failed: Empty response from LLM")
+        # Step 4: Process form with iterative user interaction
+        print("\n=== Processing Form with Iterative Communication ===")
+        filled_form = form_processor.process_form()
 
         # Step 5: Save results
         print("\n=== Saving Results ===")
@@ -110,7 +98,7 @@ def main():
         print("\nOperation completed successfully!")
         print(f"Filled form saved to: {filled_form_path}")
         
-        #Step 6: Convert JSON to HTML
+        # Step 6: Convert JSON to HTML
         print("\n=== Converting JSON to HTML ===")
         html_output_path = os.path.join(paths["samples"], "filled_form.html")
         # Convert JSON to HTML
@@ -121,7 +109,6 @@ def main():
         with open(html_output_path, "w", encoding="utf-8") as f:
             f.write(html_content)
         print(f"Successfully saved HTML to {html_output_path}")
-        
 
     except Exception as e:
         print(f"\n!!! Critical Error: {str(e)}")

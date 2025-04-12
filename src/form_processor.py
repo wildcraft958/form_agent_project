@@ -33,38 +33,32 @@ class FormProcessor:
         # Create system prompt describing the form
         system_prompt = self._create_system_prompt()
         
-        # Process each field
+        # Process each field iteratively with user interaction
         for field_name, field_data in self.form_data.items():
-            field_prompt = self._create_field_prompt(field_name, field_data)
-            
-            # Get response from LLM
-            response = self.llm_interface.generate_response(
-                prompt=field_prompt,
-                system_prompt=system_prompt,
-                chat_history=self.chat_history
-            )
-            
-            # Update the form with the response
-            if field_data['type'] == 'select':
-                # For select fields, ensure response matches an option
-                valid_options = [opt.get('text', opt.get('value', '')) for opt in field_data.get('options', [])]
-                if response not in valid_options:
-                    # Find closest match
-                    for option in valid_options:
-                        if option.lower() in response.lower():
-                            response = option
-                            break
-                    else:
-                        # If no match found, use first option
-                        response = valid_options[0] if valid_options else ""
-            
-            completed_form[field_name]['value'] = response
-            
-            # Add to chat history
-            self.chat_history.append({
-                'user': field_prompt,
-                'assistant': response
-            })
+            while True:
+                field_prompt = self._create_field_prompt(field_name, field_data)
+                
+                # Ask the user for input
+                print(f"Bot: {field_prompt}")
+                user_input = input("User: ")
+                
+                # Validate the user input
+                if field_data['type'] == 'select':
+                    valid_options = [opt.get('text', opt.get('value', '')) for opt in field_data.get('options', [])]
+                    if user_input not in valid_options:
+                        print(f"Bot: Invalid input. Please choose one of the following options: {', '.join(valid_options)}")
+                        continue
+                
+                # Update the form with the user input
+                completed_form[field_name]['value'] = user_input
+                
+                # Add to chat history
+                self.chat_history.append({
+                    'user': user_input,
+                    'assistant': field_prompt
+                })
+                
+                break
         
         return completed_form
     
