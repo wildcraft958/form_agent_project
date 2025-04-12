@@ -5,6 +5,7 @@ import json
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
+from langchain_core.messages import HumanMessage
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -36,14 +37,24 @@ class LLMHandler:
         """Initialize Ollama LLM with proper configuration."""
         if not is_package_available("langchain_ollama"):
             raise ImportError("Install 'langchain-ollama': pip install langchain-ollama")
-            
+        
         from langchain_ollama import ChatOllama
         
-        return ChatOllama(
-            model=self.model_name or "llama3",
-            temperature=0.3,
-            format="json"
-        )
+        try:
+            # Ensure base_url has no trailing slash to avoid 404 errors
+            base_url = "http://localhost:11434"
+            
+            return ChatOllama(
+                model=self.model_name or "llama3",
+                temperature=0.3,
+                format="json",
+                base_url=base_url
+            )
+        except Exception as e:
+            if "404" in str(e):
+                raise ValueError(f"Model '{self.model_name or 'llama3'}' not found. " 
+                                f"Please run 'ollama pull {self.model_name or 'llama3'}' to download the model.")
+            raise
 
     def _initialize_huggingface(self):
         """Initialize Hugging Face LLM with corrected implementation."""
@@ -53,7 +64,6 @@ class LLMHandler:
             
         if is_package_available("langchain_huggingface"):
             from langchain_huggingface import HuggingFaceEndpoint
-            
             return HuggingFaceEndpoint(
                 repo_id=self.model_name or "ruslanmv/Medical-Llama3-8B",
                 task="text-generation",
@@ -64,7 +74,6 @@ class LLMHandler:
             
         if is_package_available("langchain_community.llms"):
             from langchain_community.llms import HuggingFaceHub
-            
             return HuggingFaceHub(
                 repo_id=self.model_name or "ruslanmv/Medical-Llama3-8B",
                 huggingfacehub_api_token=hf_token,
@@ -97,7 +106,6 @@ class LLMHandler:
             desc = f"- {label} (Field: {field}, Type: {field_type})"
             if options:
                 desc += f", Options: {', '.join(map(str, options))}"
-                
             prompt.append(desc)
             
         return "\n".join(prompt)
@@ -123,7 +131,6 @@ class LLMHandler:
             field_type = "text"
             if isinstance(info, dict):
                 field_type = info.get("type", "text")
-                
             form_description.append(f"{field}: {field_type}")
             
         prompt_template = PromptTemplate(
@@ -139,13 +146,9 @@ Output JSON:""",
         )
         
         try:
+            # Fix the chain order - PromptTemplate first, then LLM
             chain = (
-                RunnablePassthrough.assign(
-                    system_prompt=lambda x: x["system_prompt"],
-                    form_description=lambda x: "\n".join(x["form_description"]),
-                    user_query=lambda x: x["user_query"]
-                )
-                | prompt_template
+                prompt_template 
                 | self.llm
                 | StrOutputParser()
             )
@@ -157,11 +160,10 @@ Output JSON:""",
             })
             
             return self._safe_parse_response(form_data, response)
-            
         except Exception as e:
             print(f"Processing Error: {str(e)}")
             return self._get_empty_form(form_data)
-            
+
     def _process_direct_prompt(self, prompt, context=None):
         """Process a direct prompt without form structure."""
         try:
@@ -169,8 +171,13 @@ Output JSON:""",
             if context:
                 prompt = f"{context}\n\n{prompt}"
                 
-            response = self.llm(prompt)
-            
+            # Format correctly for Ollama
+            if self.model_type == "ollama":
+                messages = [HumanMessage(content=prompt)]
+                response = self.llm.invoke(messages)
+            else:
+                response = self.llm.invoke(prompt)
+                
             # Handle different response formats
             if hasattr(response, 'content'):
                 response_text = response.content
@@ -186,7 +193,6 @@ Output JSON:""",
                     
             # Return as reasoning if not JSON
             return {"reasoning": response_text}
-            
         except Exception as e:
             print(f"Direct prompt processing error: {str(e)}")
             return {"reasoning": "Could not process prompt due to an error"}
@@ -202,7 +208,6 @@ Output JSON:""",
     def _update_form_structure(self, original_form, parsed_data):
         """Update original form structure with parsed values."""
         updated_form = original_form.copy()
-        
         for field, info in updated_form.items():
             # Handle both dict and string field definitions
             if isinstance(info, dict):
@@ -218,62 +223,61 @@ Output JSON:""",
     def _handle_invalid_response(self, original_form, response):
         """Fallback parsing for invalid responses."""
         print("Attempting to recover from invalid response format...")
-        
         pairs = {}
         for line in response.split('\n'):
             if ':' in line:
                 key, val = line.split(':', 1)
                 pairs[key.strip()] = val.strip()
-                
         return self._update_form_structure(original_form, pairs)
 
     def _get_empty_form(self, original_form):
         """Return original form structure with empty values."""
         empty_form = original_form.copy()
-        
         for field, info in empty_form.items():
             if isinstance(info, dict):
                 info["value"] = ""
             else:
                 empty_form[field] = {"value": "", "original": info}
-                
         return empty_form
 
-    # Add these methods to the LLMHandler class in llm_handler.py
-
+    def _call_llm(self, prompt):
+        """Helper method to call LLM with consistent error handling"""
+        try:
+            # Format correctly for Ollama
+            if self.model_type == "ollama":
+                messages = [HumanMessage(content=prompt)]
+                response = self.llm.invoke(messages)
+            else:
+                response = self.llm.invoke(prompt)
+                
+            if hasattr(response, 'content'):
+                return response.content
+            return str(response)
+        except Exception as e:
+            print(f"LLM Call Error: {str(e)}")
+            raise
+            
     def validate_input(self, field_info, user_input):
         """
         Use the LLM to validate a user input based on field information.
-        
-        Args:
-            field_info (dict): Information about the field
-            user_input (str): User input to validate
-            
-        Returns:
-            dict: Validation result with 'valid' and 'message' keys
         """
         prompt = f"""
-You are a medical form validation assistant.
-
-Field information:
-Name: {field_info.get('name', '')}
-Type: {field_info.get('type', 'text')}
-Label: {field_info.get('label', '')}
-
-User input: {user_input}
-
-Is this input valid for this field? Consider:
-1. Data type correctness
-2. Format appropriateness
-3. Medical accuracy and reasonableness
-
-Return a JSON object with:
-{{"valid": true/false, "message": "explanation"}}
-"""
+        You are a medical form validation assistant.
+        Field information:
+        Name: {field_info.get('name', '')}
+        Type: {field_info.get('type', 'text')}
+        Label: {field_info.get('label', '')}
+        User input: {user_input}
+        Is this input valid for this field? Consider:
+        1. Data type correctness
+        2. Format appropriateness
+        3. Medical accuracy and reasonableness
+        Return a JSON object with:
+        {{"valid": true/false, "message": "explanation"}}
+        """
         
         try:
             response = self._call_llm(prompt)
-            
             try:
                 result = json.loads(response.strip())
                 return {
@@ -285,7 +289,6 @@ Return a JSON object with:
                 valid = "valid: true" in response.lower() or "\"valid\": true" in response.lower()
                 message = response.split("message:")[1].strip() if "message:" in response else "Invalid input"
                 return {"valid": valid, "message": message}
-                
         except Exception as e:
             print(f"Validation Error: {str(e)}")
             return {"valid": False, "message": f"Validation error: {str(e)}"}
@@ -293,41 +296,31 @@ Return a JSON object with:
     def suggest_validation_rules(self, field_info):
         """
         Use the LLM to suggest validation rules for a field.
-        
-        Args:
-            field_info (dict): Information about the field
-            
-        Returns:
-            dict: Suggested validation rules
         """
         prompt = f"""
-You are a medical form validation expert.
-
-Field information:
-Name: {field_info.get('name', '')}
-Type: {field_info.get('type', 'text')}
-Label: {field_info.get('label', '')}
-
-Suggest appropriate validation rules for this field, considering:
-1. Data type requirements
-2. Format constraints
-3. Minimum/maximum values
-4. Required status
-5. Medical context
-
-Return a JSON object with validation rules:
-{{
-"required": true/false,
-"pattern": "regex_pattern",
-"min": minimum_value,
-"max": maximum_value,
-"hint": "user-friendly hint"
-}}
-"""
+        You are a medical form validation expert.
+        Field information:
+        Name: {field_info.get('name', '')}
+        Type: {field_info.get('type', 'text')}
+        Label: {field_info.get('label', '')}
+        Suggest appropriate validation rules for this field, considering:
+        1. Data type requirements
+        2. Format constraints
+        3. Minimum/maximum values
+        4. Required status
+        5. Medical context
+        Return a JSON object with validation rules:
+        {{
+            "required": true/false,
+            "pattern": "regex_pattern",
+            "min": minimum_value,
+            "max": maximum_value,
+            "hint": "user-friendly hint"
+        }}
+        """
         
         try:
             response = self._call_llm(prompt)
-            
             try:
                 return json.loads(response.strip())
             except json.JSONDecodeError:
@@ -336,22 +329,6 @@ Return a JSON object with validation rules:
                     "required": "required: true" in response.lower(),
                     "hint": response.split("hint:")[1].strip() if "hint:" in response else ""
                 }
-                
         except Exception as e:
             print(f"Rule Suggestion Error: {str(e)}")
             return {}
-
-    def _call_llm(self, prompt):
-        """Helper method to call LLM with consistent error handling"""
-        try:
-            # Use existing chain structure
-            response = self.llm(prompt)
-            
-            if hasattr(response, 'content'):
-                return response.content
-                
-            return str(response)
-            
-        except Exception as e:
-            print(f"LLM Call Error: {str(e)}")
-            raise

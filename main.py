@@ -41,12 +41,19 @@ def save_json_to_file(json_data, file_path):
         return False
 
 def fetch_radreport_template(template_id):
-    """Fetch MRRT template from RadReport.org"""
+    """Fetch MRRT template from RadReport.org with improved error handling"""
     url = f"https://radreport.org/template/{template_id}"
     try:
         response = requests.get(url)
         response.raise_for_status()
+        print(f"Successfully fetched template {template_id} from RadReport.org")
         return response.text
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 404:
+            print(f"Error: Template {template_id} not found on RadReport.org")
+        else:
+            print(f"HTTP Error fetching template: {str(e)}")
+        return None
     except Exception as e:
         print(f"Error fetching template: {str(e)}")
         return None
@@ -151,18 +158,17 @@ def main():
             print("Error: Could not read HTML form content. Please check file paths and try again.")
             return
             
-        # Step 3: Convert HTML to JSON
+       # Step 3: Convert HTML to JSON
         print("\n=== Converting HTML to JSON ===")
-        
-        if use_radreport:
+        if use_radreport and html_content:
             parser = MRRTParser()
             form_json = parser.parse_html(html_content)
+            if not form_json or (not form_json.get('sections') and not form_json.get('fields')):
+                print("Warning: Failed to extract structure from RadReport template, using default form")
+                form_json = convert_html_to_json(read_html_file(sample_form_path))
         else:
             form_json = convert_html_to_json(html_content)
-            
-        if not form_json:
-            print("Conversion failed: Empty JSON output")
-            return
+
             
         # Step 4: Enhance form with metadata
         enhanced_form = enhance_form_schema(form_json)

@@ -18,14 +18,26 @@ class MRRTParser:
         if not html_content or not isinstance(html_content, str):
             print("Error: Invalid HTML content provided")
             return self.schema
-            
+
         try:
+            # Reset schema to avoid contamination from previous parses
+            self.schema = {
+                "title": "",
+                "sections": [],
+                "fields": []
+            }
+            
             soup = BeautifulSoup(html_content, 'html.parser')
+            
+            # Print the first part of the HTML for debugging
+            print(f"Parsing HTML template - first 100 chars: {html_content[:100]}")
+            
             self._extract_metadata(soup)
             self._parse_sections(soup.find('body') or soup)
             
             # If no sections or fields were found, create default structure
             if not self.schema['sections'] and not self.schema['fields']:
+                print("No sections or fields found in template, creating default structure")
                 self._create_default_structure()
                 
             return self.schema
@@ -33,7 +45,7 @@ class MRRTParser:
             print(f"Error parsing MRRT template: {e}")
             self._create_default_structure()
             return self.schema
-            
+                    
     def _create_default_structure(self):
         """Create a default form structure when parsing fails"""
         self.schema["title"] = "Medical Report Template"

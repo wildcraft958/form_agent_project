@@ -31,7 +31,7 @@
       "code": {
         "text": "Patient ID"
       },
-      "valueString": "hdoi2"
+      "valueString": "2323"
     },
     {
       "resourceType": "Observation",
@@ -40,7 +40,7 @@
       "code": {
         "text": "Date of Birth"
       },
-      "valueString": "20/01/2024"
+      "valueString": "20/01/2005"
     },
     {
       "resourceType": "Observation",
@@ -58,7 +58,7 @@
       "code": {
         "text": "Diagnosis"
       },
-      "valueString": "npo"
+      "valueString": "do it"
     },
     {
       "resourceType": "Observation",
@@ -67,7 +67,7 @@
       "code": {
         "text": "Symptoms"
       },
-      "valueString": "np"
+      "valueString": "maybe"
     },
     {
       "resourceType": "Observation",
@@ -76,7 +76,7 @@
       "code": {
         "text": "Medical History"
       },
-      "valueString": "np"
+      "valueString": "yes"
     },
     {
       "resourceType": "Observation",
@@ -85,7 +85,7 @@
       "code": {
         "text": "Medication Name"
       },
-      "valueString": "np"
+      "valueString": "paracetamol"
     },
     {
       "resourceType": "Observation",
@@ -94,7 +94,7 @@
       "code": {
         "text": "Dosage"
       },
-      "valueString": "np"
+      "valueString": "2mg"
     },
     {
       "resourceType": "Observation",
@@ -103,7 +103,7 @@
       "code": {
         "text": "Frequency"
       },
-      "valueString": "bid"
+      "valueString": "daily"
     },
     {
       "resourceType": "Observation",
@@ -112,7 +112,7 @@
       "code": {
         "text": "Duration (days)"
       },
-      "valueString": "121.0"
+      "valueString": "2.0"
     },
     {
       "resourceType": "Observation",

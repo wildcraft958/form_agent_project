@@ -5,12 +5,12 @@
     "type": "text"
   },
   "patient_info/patient_id": {
-    "value": "2323",
+    "value": "hdoi2",
     "label": "Patient ID",
     "type": "text"
   },
   "patient_info/patient_dob": {
-    "value": "20/01/2005",
+    "value": "20/01/2024",
     "label": "Date of Birth",
     "type": "date"
   },
@@ -20,37 +20,37 @@
     "type": "select"
   },
   "clinical_info/diagnosis": {
-    "value": "do it",
+    "value": "npo",
     "label": "Diagnosis",
     "type": "textarea"
   },
   "clinical_info/symptoms": {
-    "value": "maybe",
+    "value": "np",
     "label": "Symptoms",
     "type": "textarea"
   },
   "clinical_info/medical_history": {
-    "value": "yes",
+    "value": "np",
     "label": "Medical History",
     "type": "textarea"
   },
   "medication/medication_name": {
-    "value": "paracetamol",
+    "value": "np",
     "label": "Medication Name",
     "type": "text"
   },
   "medication/dosage": {
-    "value": "2mg",
+    "value": "np",
     "label": "Dosage",
     "type": "text"
   },
   "medication/frequency": {
-    "value": "daily",
+    "value": "bid",
     "label": "Frequency",
     "type": "select"
   },
   "medication/duration": {
-    "value": 2.0,
+    "value": 121.0,
     "label": "Duration (days)",
     "type": "number"
   },
