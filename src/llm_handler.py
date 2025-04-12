@@ -187,3 +187,116 @@ class LLMHandler:
             else:
                 empty_form[field] = {"value": "", "original": info}
         return empty_form
+    # Add these methods to the LLMHandler class in llm_handler.py
+
+    def validate_input(self, field_info, user_input):
+        """
+        Use the LLM to validate a user input based on field information.
+        
+        Args:
+            field_info (dict): Information about the field
+            user_input (str): User input to validate
+            
+        Returns:
+            dict: Validation result with 'valid' and 'message' keys
+        """
+        prompt = f"""
+        You are a medical form validation assistant.
+        
+        Field information:
+        Name: {field_info.get('name', '')}
+        Type: {field_info.get('type', 'text')}
+        Label: {field_info.get('label', '')}
+        
+        User input: {user_input}
+        
+        Is this input valid for this field? Consider:
+        1. Data type correctness
+        2. Format appropriateness
+        3. Medical accuracy and reasonableness
+        
+        Return a JSON object with:
+        {{"valid": true/false, "message": "explanation"}}
+        """
+        
+        try:
+            response = self._call_llm(prompt)
+            
+            try:
+                result = json.loads(response.strip())
+                return {
+                    "valid": result.get("valid", False),
+                    "message": result.get("message", "Invalid input")
+                }
+            except json.JSONDecodeError:
+                # Fallback parsing
+                valid = "valid: true" in response.lower() or "\"valid\": true" in response.lower()
+                message = response.split("message:")[1].strip() if "message:" in response else "Invalid input"
+                return {"valid": valid, "message": message}
+                
+        except Exception as e:
+            print(f"Validation Error: {str(e)}")
+            return {"valid": False, "message": f"Validation error: {str(e)}"}
+            
+    def suggest_validation_rules(self, field_info):
+        """
+        Use the LLM to suggest validation rules for a field.
+        
+        Args:
+            field_info (dict): Information about the field
+            
+        Returns:
+            dict: Suggested validation rules
+        """
+        prompt = f"""
+        You are a medical form validation expert.
+        
+        Field information:
+        Name: {field_info.get('name', '')}
+        Type: {field_info.get('type', 'text')}
+        Label: {field_info.get('label', '')}
+        
+        Suggest appropriate validation rules for this field, considering:
+        1. Data type requirements
+        2. Format constraints
+        3. Minimum/maximum values
+        4. Required status
+        5. Medical context
+        
+        Return a JSON object with validation rules:
+        {{
+            "required": true/false,
+            "pattern": "regex_pattern",
+            "min": minimum_value,
+            "max": maximum_value,
+            "hint": "user-friendly hint"
+        }}
+        """
+        
+        try:
+            response = self._call_llm(prompt)
+            
+            try:
+                return json.loads(response.strip())
+            except json.JSONDecodeError:
+                # Fallback for invalid JSON
+                return {
+                    "required": "required: true" in response.lower(),
+                    "hint": response.split("hint:")[1].strip() if "hint:" in response else ""
+                }
+                
+        except Exception as e:
+            print(f"Rule Suggestion Error: {str(e)}")
+            return {}
+            
+    def _call_llm(self, prompt):
+        """Helper method to call LLM with consistent error handling"""
+        try:
+            # Use existing chain structure
+            response = self.llm(prompt)
+            if hasattr(response, 'content'):
+                return response.content
+            return str(response)
+        except Exception as e:
+            print(f"LLM Call Error: {str(e)}")
+            raise

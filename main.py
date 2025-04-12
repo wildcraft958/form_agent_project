@@ -118,7 +118,7 @@ def main():
         # File paths
         sample_form_path = os.path.join(paths["samples"], "medical_form.html")
         json_output_path = os.path.join(paths["samples"], "form_structure.json")
-        filled_form_path = paths["filled_form"]
+        filled_form_path = os.path.join(paths["samples"], "filled_form.json")
 
         # Step 1: Display welcome message
         print("\n=== Medical Prescription Form Assistant ===")
