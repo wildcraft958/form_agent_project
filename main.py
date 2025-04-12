@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from dotenv import load_dotenv
 from src.html_converter import convert_html_to_json
 from src.JSON_converter import convert_json_to_html
@@ -7,7 +8,7 @@ from src.llm_handler import LLMHandler
 from src.chat_history import ChatHistoryManager
 from src.form_processor import FormProcessor
 
-# Load environment variables first
+# Load environment variables
 load_dotenv()
 
 def read_html_file(file_path):
@@ -34,6 +35,60 @@ def save_json_to_file(json_data, file_path):
     except Exception as e:
         print(f"Error saving JSON file: {str(e)}")
 
+def enhance_form_schema(form_json):
+    """Enhance the form schema with additional metadata for better interaction."""
+    enhanced_form = dict(form_json)
+    
+    # Add field descriptions and validation metadata
+    field_metadata = {
+        "patient_name": {
+            "description": "Enter the patient's full legal name as it appears on their medical records.",
+            "validation": r"^[A-Za-z\s\-'.]+$",
+            "validation_message": "Name should contain only letters, spaces, hyphens, and apostrophes."
+        },
+        "patient_dob": {
+            "description": "Enter the patient's date of birth in MM/DD/YYYY format.",
+            "type": "date"
+        },
+        "patient_id": {
+            "description": "Enter the patient's unique medical ID number or insurance identifier."
+        },
+        "diagnosis": {
+            "description": "Enter the patient's diagnosis or reason for prescription.",
+            "type": "textarea"
+        },
+        "medication": {
+            "description": "Enter the prescribed medication name (generic or brand name)."
+        },
+        "dosage": {
+            "description": "Enter the prescribed dosage amount (e.g., 500mg, 10ml).",
+            "validation": r"^\d+(\.\d+)?\s*[a-zA-Z]+$",
+            "validation_message": "Dosage should include a number followed by a unit (e.g., 10mg, 5ml)."
+        },
+        "frequency": {
+            "description": "How often should the patient take this medication?",
+            "type": "select"
+        },
+        "duration": {
+            "description": "For how many days should the medication be taken?",
+            "type": "number",
+            "validation": r"^\d+$",
+            "validation_message": "Duration should be a positive whole number of days."
+        },
+        "special_instructions": {
+            "description": "Enter any special instructions for taking this medication (e.g., with food, before bedtime).",
+            "type": "textarea",
+            "required": False
+        }
+    }
+    
+    # Update form fields with enhanced metadata
+    for field_name, metadata in field_metadata.items():
+        if field_name in enhanced_form:
+            enhanced_form[field_name].update(metadata)
+    
+    return enhanced_form
+
 def get_project_paths():
     """Get standardized project paths."""
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -45,7 +100,7 @@ def get_project_paths():
     }
 
 def main():
-    """Main execution flow with enhanced error handling."""
+    """Main execution flow with enhanced error handling and user experience."""
     paths = get_project_paths()
     
     try:
@@ -54,22 +109,31 @@ def main():
         json_output_path = os.path.join(paths["samples"], "form_structure.json")
         filled_form_path = os.path.join(paths["samples"], "filled_form.json")
 
-        # Step 1: Read HTML form
+        # Step 1: Display welcome message
+        print("\n=== Medical Prescription Form Assistant ===")
+        print("This bot will help you complete a medical prescription form.")
+        print("I'll guide you through each field with explanations.")
+        print("For multiple choice questions, you can enter the number of your selection.")
+        print("Let's get started!\n")
+
+        # Step 2: Read HTML form
         print("\n=== Reading HTML Form ===")
         html_content = read_html_file(sample_form_path)
         if not html_content:
             return
 
-        # Step 2: Convert HTML to JSON
+        # Step 3: Convert HTML to JSON
         print("\n=== Converting HTML to JSON ===")
         form_json = convert_html_to_json(html_content)
         if not form_json:
             print("Conversion failed: Empty JSON output")
             return
             
-        save_json_to_file(form_json, json_output_path)
+        # Step 4: Enhance form with metadata
+        enhanced_form = enhance_form_schema(form_json)
+        save_json_to_file(enhanced_form, json_output_path)
 
-        # Step 3: Initialize components
+        # Step 5: Initialize components
         print("\n=== Initializing Components ===")
         history_manager = ChatHistoryManager(history_file=paths["history"])
         
@@ -83,32 +147,41 @@ def main():
             model_name=os.getenv("MODEL_NAME")  # Get specific model from env
         )
 
-        # Initialize the form processor
+        # Step 6: Initialize the form processor
         form_processor = FormProcessor(llm_handler)
-        form_processor.load_form(form_json)
+        form_processor.load_form(enhanced_form)
 
-        # Step 4: Process form with iterative user interaction
-        print("\n=== Processing Form with Iterative Communication ===")
+        # Step 7: Process form with iterative user interaction
+        print("\n=== Processing Form with Interactive Communication ===")
         filled_form = form_processor.process_form()
 
-        # Step 5: Save results
+        # Step 8: Summarize collected information
+        print("\n=== Form Completion Summary ===")
+        print("Thank you for completing the medical prescription form. Here's a summary of the information provided:")
+        
+        for field_name, field_data in filled_form.items():
+            if not field_data.get('hidden', False):
+                display_name = " ".join(word.capitalize() for word in field_name.split('_'))
+                value = field_data.get('value', 'Not provided')
+                print(f"- {display_name}: {value}")
+        
+        # Step 9: Save results
         print("\n=== Saving Results ===")
         save_json_to_file(filled_form, filled_form_path)
         
-        print("\nOperation completed successfully!")
-        print(f"Filled form saved to: {filled_form_path}")
-        
-        # Step 6: Convert JSON to HTML
+        # Step 10: Convert JSON to HTML
         print("\n=== Converting JSON to HTML ===")
         html_output_path = os.path.join(paths["samples"], "filled_form.html")
-        # Convert JSON to HTML
         html_content = convert_json_to_html(filled_form)
         if not html_content:
             print("Conversion failed: Empty HTML output")
             return
         with open(html_output_path, "w", encoding="utf-8") as f:
             f.write(html_content)
-        print(f"Successfully saved HTML to {html_output_path}")
+        
+        print(f"\nOperation completed successfully!")
+        print(f"Filled form saved to: {filled_form_path}")
+        print(f"HTML version saved to: {html_output_path}")
 
     except Exception as e:
         print(f"\n!!! Critical Error: {str(e)}")

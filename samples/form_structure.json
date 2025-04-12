@@ -7,7 +7,10 @@
       "type": "text",
       "id": "patient_name",
       "name": "patient_name"
-    }
+    },
+    "description": "Enter the patient's full legal name as it appears on their medical records.",
+    "validation": "^[A-Za-z\\s\\-'.]+$",
+    "validation_message": "Name should contain only letters, spaces, hyphens, and apostrophes."
   },
   "patient_dob": {
     "type": "date",
@@ -17,7 +20,8 @@
       "type": "date",
       "id": "patient_dob",
       "name": "patient_dob"
-    }
+    },
+    "description": "Enter the patient's date of birth in MM/DD/YYYY format."
   },
   "patient_id": {
     "type": "text",
@@ -27,7 +31,8 @@
       "type": "text",
       "id": "patient_id",
       "name": "patient_id"
-    }
+    },
+    "description": "Enter the patient's unique medical ID number or insurance identifier."
   },
   "diagnosis": {
     "type": "textarea",
@@ -37,7 +42,8 @@
       "id": "diagnosis",
       "name": "diagnosis",
       "rows": "3"
-    }
+    },
+    "description": "Enter the patient's diagnosis or reason for prescription."
   },
   "medication": {
     "type": "text",
@@ -47,7 +53,8 @@
       "type": "text",
       "id": "medication",
       "name": "medication"
-    }
+    },
+    "description": "Enter the prescribed medication name (generic or brand name)."
   },
   "dosage": {
     "type": "text",
@@ -57,7 +64,10 @@
       "type": "text",
       "id": "dosage",
       "name": "dosage"
-    }
+    },
+    "description": "Enter the prescribed dosage amount (e.g., 500mg, 10ml).",
+    "validation": "^\\d+(\\.\\d+)?\\s*[a-zA-Z]+$",
+    "validation_message": "Dosage should include a number followed by a unit (e.g., 10mg, 5ml)."
   },
   "frequency": {
     "type": "select",
@@ -66,7 +76,8 @@
     "attributes": {
       "id": "frequency",
       "name": "frequency"
-    }
+    },
+    "description": "How often should the patient take this medication?"
   },
   "duration": {
     "type": "number",
@@ -77,7 +88,10 @@
       "id": "duration",
       "name": "duration",
       "min": "1"
-    }
+    },
+    "description": "For how many days should the medication be taken?",
+    "validation": "^\\d+$",
+    "validation_message": "Duration should be a positive whole number of days."
   },
   "special_instructions": {
     "type": "textarea",
@@ -87,7 +101,9 @@
       "id": "special_instructions",
       "name": "special_instructions",
       "rows": "3"
-    }
+    },
+    "description": "Enter any special instructions for taking this medication (e.g., with food, before bedtime).",
+    "required": false
   },
   "doctor_name": {
     "type": "text",
