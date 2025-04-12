@@ -1,0 +1,4 @@
+html-to-json
+langchain
+langchain-community
+langchain-core

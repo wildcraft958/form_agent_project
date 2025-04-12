@@ -1,0 +1,122 @@
+{
+  "patient_name": {
+    "type": "text",
+    "value": "John Doe",
+    "label": "Patient Name:",
+    "attributes": {
+      "type": "text",
+      "id": "patient_name",
+      "name": "patient_name"
+    }
+  },
+  "patient_dob": {
+    "type": "date",
+    "value": "1990-07-15",
+    "label": "Date of Birth:",
+    "attributes": {
+      "type": "date",
+      "id": "patient_dob",
+      "name": "patient_dob"
+    }
+  },
+  "patient_id": {
+    "type": "text",
+    "value": "123456789",
+    "label": "Patient ID:",
+    "attributes": {
+      "type": "text",
+      "id": "patient_id",
+      "name": "patient_id"
+    }
+  },
+  "diagnosis": {
+    "type": "textarea",
+    "value": "Acute Bronchitis",
+    "label": "Diagnosis:",
+    "attributes": {
+      "id": "diagnosis",
+      "name": "diagnosis",
+      "rows": "3"
+    }
+  },
+  "medication": {
+    "type": "text",
+    "value": "Azithromycin",
+    "label": "Medication:",
+    "attributes": {
+      "type": "text",
+      "id": "medication",
+      "name": "medication"
+    }
+  },
+  "dosage": {
+    "type": "text",
+    "value": "500mg every 8 hours",
+    "label": "Dosage:",
+    "attributes": {
+      "type": "text",
+      "id": "dosage",
+      "name": "dosage"
+    }
+  },
+  "frequency": {
+    "type": "select",
+    "value": "every 8 hours",
+    "label": "Frequency:",
+    "attributes": {
+      "id": "frequency",
+      "name": "frequency"
+    }
+  },
+  "duration": {
+    "type": "number",
+    "value": 7,
+    "label": "Duration (days):",
+    "attributes": {
+      "type": "number",
+      "id": "duration",
+      "name": "duration",
+      "min": "1"
+    }
+  },
+  "special_instructions": {
+    "type": "textarea",
+    "value": "Take with food and avoid driving after taking medication",
+    "label": "Special Instructions:",
+    "attributes": {
+      "id": "special_instructions",
+      "name": "special_instructions",
+      "rows": "3"
+    }
+  },
+  "doctor_name": {
+    "type": "text",
+    "value": "Dr. Jane Smith",
+    "label": "Doctor Name:",
+    "attributes": {
+      "type": "text",
+      "id": "doctor_name",
+      "name": "doctor_name"
+    }
+  },
+  "doctor_signature": {
+    "type": "text",
+    "value": "Jane Smith MD",
+    "label": "Doctor Signature:",
+    "attributes": {
+      "type": "text",
+      "id": "doctor_signature",
+      "name": "doctor_signature"
+    }
+  },
+  "prescription_date": {
+    "type": "date",
+    "value": "2023-02-22",
+    "label": "Prescription Date:",
+    "attributes": {
+      "type": "date",
+      "id": "prescription_date",
+      "name": "prescription_date"
+    }
+  }
+}
