@@ -14,7 +14,7 @@ class ChatHistoryManager:
         self.history_file = history_file
         self.max_history = max_history
         self.history = self._load_history()
-        
+
     def _load_history(self):
         """
         Load chat history from file if it exists.
@@ -30,17 +30,20 @@ class ChatHistoryManager:
                 print(f"Error loading chat history: {e}")
                 return []
         return []
-    
+
     def _save_history(self):
         """
         Save chat history to file.
         """
         try:
+            # Create directory if it doesn't exist
+            os.makedirs(os.path.dirname(os.path.abspath(self.history_file)), exist_ok=True)
+            
             with open(self.history_file, 'w') as f:
                 json.dump(self.history, f, indent=2)
         except Exception as e:
             print(f"Error saving chat history: {e}")
-    
+
     def add_to_history(self, role, content):
         """
         Add a message to chat history.
@@ -62,10 +65,10 @@ class ChatHistoryManager:
         # Trim history if needed
         if len(self.history) > self.max_history:
             self.history = self.history[-self.max_history:]
-        
+            
         # Save updated history
         self._save_history()
-    
+
     def get_history(self):
         """
         Get the chat history.
@@ -74,7 +77,7 @@ class ChatHistoryManager:
             list: Chat history
         """
         return self.history
-    
+
     def get_formatted_history(self):
         """
         Get a formatted string representation of the chat history.
@@ -83,14 +86,12 @@ class ChatHistoryManager:
             str: Formatted chat history
         """
         formatted_history = "Previous conversation:\n"
-        
         for msg in self.history:
             role = msg["role"].capitalize()
             content = msg["content"]
             formatted_history += f"{role}: {content}\n\n"
-        
         return formatted_history
-    
+
     def clear_history(self):
         """
         Clear the chat history.

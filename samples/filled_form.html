@@ -1,23 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Filled Form</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 5px; font-weight: bold; }
-    .value { padding: 8px; border: 1px solid #ddd; border-radius: 4px; background-color: #f9f9f9; }
-    .section { margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-    .section-title { font-size: 1.2em; color: #333; margin-bottom: 15px; }
-    .subsection { margin-left: 20px; margin-bottom: 15px; }
-    .form-container { max-width: 800px; margin: 0 auto; }
-    h1 { color: #2c3e50; }
-    .metadata { color: #7f8c8d; font-size: 0.9em; margin-bottom: 20px; }
-  </style>
+    <title>Completed Medical Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .form-section { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .form-field { margin-bottom: 10px; }
+        .field-label { font-weight: bold; display: block; }
+        .field-value { padding: 5px; background-color: #f9f9f9; border-radius: 3px; }
+    </style>
 </head>
 <body>
-  <h1>Form Submission</h1>
-  <div class='form-container'>
-  </div>
+    <h1>Completed Medical Form</h1>
+    <div class="form-section">
+        <h2>Patient Info</h2>
+        <div class="form-field">
+            <div class="field-label">Patient Name</div>
+            <div class="field-value">anime</div>
+        </div>
+        <div class="form-field">
+            <div class="field-label">Patient ID</div>
+            <div class="field-value">2323</div>
+        </div>
+        <div class="form-field">
+            <div class="field-label">Date of Birth</div>
+            <div class="field-value">20/01/2005</div>
+        </div>
+        <div class="form-field">
+            <div class="field-label">Gender</div>
+            <div class="field-value">M</div>
+        </div>
+    </div>
+    <div class="form-section">
+        <h2>Clinical Info</h2>
+        <div class="form-field">
+            <div class="field-label">Diagnosis</div>
+            <div class="field-value">do it</div>
+        </div>
+        <div class="form-field">
+            <div class="field-label">Symptoms</div>
+            <div class="field-value">maybe</div>
+        </div>
+        <div class="form-field">
+            <div class="field-label">Medical History</div>
+            <div class="field-value">yes</div>
+        </div>
+    </div>
+    <div class="form-section">
+        <h2>Medication</h2>
+        <div class="form-field">
+            <div class="field-label">Medication Name</div>
+            <div class="field-value">paracetamol</div>
+        </div>
+        <div class="form-field">
+            <div class="field-label">Dosage</div>
+            <div class="field-value">2mg</div>
+        </div>
+        <div class="form-field">
+            <div class="field-label">Frequency</div>
+            <div class="field-value">daily</div>
+        </div>
+        <div class="form-field">
+            <div class="field-label">Duration (days)</div>
+            <div class="field-value">2.0</div>
+        </div>
+        <div class="form-field">
+            <div class="field-label">Special Instructions</div>
+            <div class="field-value">no</div>
+        </div>
+    </div>
 </body>
 </html>

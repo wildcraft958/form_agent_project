@@ -1,1 +1,62 @@
-{}
+{
+  "patient_info/patient_name": {
+    "value": "anime",
+    "label": "Patient Name",
+    "type": "text"
+  },
+  "patient_info/patient_id": {
+    "value": "2323",
+    "label": "Patient ID",
+    "type": "text"
+  },
+  "patient_info/patient_dob": {
+    "value": "20/01/2005",
+    "label": "Date of Birth",
+    "type": "date"
+  },
+  "patient_info/patient_gender": {
+    "value": "M",
+    "label": "Gender",
+    "type": "select"
+  },
+  "clinical_info/diagnosis": {
+    "value": "do it",
+    "label": "Diagnosis",
+    "type": "textarea"
+  },
+  "clinical_info/symptoms": {
+    "value": "maybe",
+    "label": "Symptoms",
+    "type": "textarea"
+  },
+  "clinical_info/medical_history": {
+    "value": "yes",
+    "label": "Medical History",
+    "type": "textarea"
+  },
+  "medication/medication_name": {
+    "value": "paracetamol",
+    "label": "Medication Name",
+    "type": "text"
+  },
+  "medication/dosage": {
+    "value": "2mg",
+    "label": "Dosage",
+    "type": "text"
+  },
+  "medication/frequency": {
+    "value": "daily",
+    "label": "Frequency",
+    "type": "select"
+  },
+  "medication/duration": {
+    "value": 2.0,
+    "label": "Duration (days)",
+    "type": "number"
+  },
+  "medication/special_instructions": {
+    "value": "no",
+    "label": "Special Instructions",
+    "type": "textarea"
+  }
+}

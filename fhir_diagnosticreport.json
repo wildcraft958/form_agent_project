@@ -1,0 +1,177 @@
+{
+  "resourceType": "DiagnosticReport",
+  "status": "final",
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "18748-4",
+        "display": "Diagnostic Imaging Report"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/example",
+    "display": "anime"
+  },
+  "contained": [
+    {
+      "resourceType": "Observation",
+      "id": "obs0",
+      "status": "final",
+      "code": {
+        "text": "Patient Name"
+      },
+      "valueString": "anime"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs1",
+      "status": "final",
+      "code": {
+        "text": "Patient ID"
+      },
+      "valueString": "2323"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs2",
+      "status": "final",
+      "code": {
+        "text": "Date of Birth"
+      },
+      "valueString": "20/01/2005"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs3",
+      "status": "final",
+      "code": {
+        "text": "Gender"
+      },
+      "valueString": "M"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs4",
+      "status": "final",
+      "code": {
+        "text": "Diagnosis"
+      },
+      "valueString": "do it"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs5",
+      "status": "final",
+      "code": {
+        "text": "Symptoms"
+      },
+      "valueString": "maybe"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs6",
+      "status": "final",
+      "code": {
+        "text": "Medical History"
+      },
+      "valueString": "yes"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs7",
+      "status": "final",
+      "code": {
+        "text": "Medication Name"
+      },
+      "valueString": "paracetamol"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs8",
+      "status": "final",
+      "code": {
+        "text": "Dosage"
+      },
+      "valueString": "2mg"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs9",
+      "status": "final",
+      "code": {
+        "text": "Frequency"
+      },
+      "valueString": "daily"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs10",
+      "status": "final",
+      "code": {
+        "text": "Duration (days)"
+      },
+      "valueString": "2.0"
+    },
+    {
+      "resourceType": "Observation",
+      "id": "obs11",
+      "status": "final",
+      "code": {
+        "text": "Special Instructions"
+      },
+      "valueString": "no"
+    }
+  ],
+  "result": [
+    {
+      "reference": "#obs0",
+      "display": "Patient Name"
+    },
+    {
+      "reference": "#obs1",
+      "display": "Patient ID"
+    },
+    {
+      "reference": "#obs2",
+      "display": "Date of Birth"
+    },
+    {
+      "reference": "#obs3",
+      "display": "Gender"
+    },
+    {
+      "reference": "#obs4",
+      "display": "Diagnosis"
+    },
+    {
+      "reference": "#obs5",
+      "display": "Symptoms"
+    },
+    {
+      "reference": "#obs6",
+      "display": "Medical History"
+    },
+    {
+      "reference": "#obs7",
+      "display": "Medication Name"
+    },
+    {
+      "reference": "#obs8",
+      "display": "Dosage"
+    },
+    {
+      "reference": "#obs9",
+      "display": "Frequency"
+    },
+    {
+      "reference": "#obs10",
+      "display": "Duration (days)"
+    },
+    {
+      "reference": "#obs11",
+      "display": "Special Instructions"
+    }
+  ]
+}
