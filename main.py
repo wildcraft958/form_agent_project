@@ -1,12 +1,14 @@
 import os
 import json
 import re
+import requests
 from dotenv import load_dotenv
 from src.html_converter import convert_html_to_json
 from src.JSON_converter import convert_json_to_html
 from src.llm_handler import LLMHandler
 from src.chat_history import ChatHistoryManager
-from src.form_processor import FormProcessor
+from src.form_processor import EnhancedFormProcessor
+from src.mrrttemplate_parser import MRRTParser
 
 # Load environment variables
 load_dotenv()
@@ -34,6 +36,17 @@ def save_json_to_file(json_data, file_path):
         print(f"Successfully saved JSON to {file_path}")
     except Exception as e:
         print(f"Error saving JSON file: {str(e)}")
+
+def fetch_radreport_template(template_id):
+    """Fetch MRRT template from RadReport.org"""
+    url = f"https://radreport.org/template/{template_id}"
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.text
+    except Exception as e:
+        print(f"Error fetching template: {str(e)}")
+        return None
 
 def enhance_form_schema(form_json):
     """Enhance the form schema with additional metadata for better interaction."""
@@ -91,12 +104,10 @@ def enhance_form_schema(form_json):
 
 def get_project_paths():
     """Get standardized project paths."""
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    samples_dir = os.path.join(base_dir, "form_agent_project", "samples")
     return {
-        "base": base_dir,
-        "samples": samples_dir,
-        "history": os.path.join(base_dir, "chat_history.json")
+        "samples": "./samples",
+        "filled_form": "./filled_form.json",
+        "fhir_output": "./fhir_diagnosticreport.json"
     }
 
 def main():
@@ -107,7 +118,7 @@ def main():
         # File paths
         sample_form_path = os.path.join(paths["samples"], "medical_form.html")
         json_output_path = os.path.join(paths["samples"], "form_structure.json")
-        filled_form_path = os.path.join(paths["samples"], "filled_form.json")
+        filled_form_path = paths["filled_form"]
 
         # Step 1: Display welcome message
         print("\n=== Medical Prescription Form Assistant ===")
@@ -116,15 +127,30 @@ def main():
         print("For multiple choice questions, you can enter the number of your selection.")
         print("Let's get started!\n")
 
-        # Step 2: Read HTML form
+        # Step 2: Ask for RadReport template or use default
         print("\n=== Reading HTML Form ===")
-        html_content = read_html_file(sample_form_path)
+        use_radreport = input("Would you like to use a RadReport.org template? (y/n): ").lower() == 'y'
+        
+        if use_radreport:
+            template_id = input("Enter RadReport template ID: ")
+            html_content = fetch_radreport_template(template_id)
+            if not html_content:
+                print("Using default medical form")
+                html_content = read_html_file(sample_form_path)
+        else:
+            html_content = read_html_file(sample_form_path)
+            
         if not html_content:
             return
 
         # Step 3: Convert HTML to JSON
         print("\n=== Converting HTML to JSON ===")
-        form_json = convert_html_to_json(html_content)
+        if use_radreport:
+            parser = MRRTParser()
+            form_json = parser.parse_html(html_content)
+        else:
+            form_json = convert_html_to_json(html_content)
+            
         if not form_json:
             print("Conversion failed: Empty JSON output")
             return
@@ -135,7 +161,8 @@ def main():
 
         # Step 5: Initialize components
         print("\n=== Initializing Components ===")
-        history_manager = ChatHistoryManager(history_file=paths["history"])
+        history_file = os.path.join(os.path.dirname(paths["samples"]), "chat_history.json")
+        history_manager = ChatHistoryManager(history_file=history_file)
         
         model_type = os.getenv("MODEL_TYPE", "ollama").lower()
         if model_type not in ["ollama", "huggingface"]:
@@ -148,7 +175,7 @@ def main():
         )
 
         # Step 6: Initialize the form processor
-        form_processor = FormProcessor(llm_handler)
+        form_processor = EnhancedFormProcessor(llm_handler)
         form_processor.load_form(enhanced_form)
 
         # Step 7: Process form with iterative user interaction
@@ -179,9 +206,17 @@ def main():
         with open(html_output_path, "w", encoding="utf-8") as f:
             f.write(html_content)
         
+        # Step 11: Convert to FHIR if needed
+        if use_radreport:
+            print("\n=== Converting to FHIR DiagnosticReport ===")
+            fhir_report = convert_to_fhir(filled_form)
+            save_json_to_file(fhir_report, paths["fhir_output"])
+        
         print(f"\nOperation completed successfully!")
         print(f"Filled form saved to: {filled_form_path}")
         print(f"HTML version saved to: {html_output_path}")
+        if use_radreport:
+            print(f"FHIR report saved to: {paths['fhir_output']}")
 
     except Exception as e:
         print(f"\n!!! Critical Error: {str(e)}")
@@ -189,6 +224,29 @@ def main():
             print("Please check your package installations")
         elif "API token" in str(e):
             print("Verify your .env file contains correct API credentials")
+
+def convert_to_fhir(form_data):
+    """Convert form data to FHIR DiagnosticReport"""
+    return {
+        "resourceType": "DiagnosticReport",
+        "status": "final",
+        "code": {
+            "coding": [{
+                "system": "http://loinc.org",
+                "code": "18748-4",
+                "display": "Diagnostic Imaging Report"
+            }]
+        },
+        "subject": {
+            "reference": "Patient/example",
+            "display": form_data.get("patient_name", {}).get("value", "Unknown Patient")
+        },
+        "result": [{
+            "reference": f"#obs{idx}",
+            "display": field_name
+        } for idx, (field_name, field) in enumerate(form_data.items())
+           if not field.get('hidden', False)]
+    }
 
 if __name__ == "__main__":
     main()
