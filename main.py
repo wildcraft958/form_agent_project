@@ -7,21 +7,20 @@ from src.JSON_converter import convert_json_to_html
 from src.llm_handler import LLMHandler
 from src.chat_history import ChatHistoryManager
 from src.form_processor import FormProcessor
+from src.radreport_api import get_templates, get_template_details
+
 
 # Load environment variables
 load_dotenv()
 
-def read_html_file(file_path):
-    """Read HTML file content with improved error handling."""
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            return f.read()
-    except FileNotFoundError:
-        print(f"Error: File not found at {file_path}")
-        return None
-    except Exception as e:
-        print(f"Unexpected error reading file: {str(e)}")
-        return None
+def select_template():
+    print("Fetching available radiology report templates...")
+    templates = get_templates(approved=True, limit=10)  # Fetch a sample set
+    for idx, tpl in enumerate(templates, 1):
+        print(f"{idx}. {tpl.get('title', 'No Title')} (ID: {tpl['id']})")
+    choice = int(input("Select a template by number: ")) - 1
+    selected = templates[choice]
+    return selected['id']
 
 def save_json_to_file(json_data, file_path):
     """Save JSON data to file with directory creation."""
@@ -116,10 +115,16 @@ def main():
         print("For multiple choice questions, you can enter the number of your selection.")
         print("Let's get started!\n")
 
-        # Step 2: Read HTML form
-        print("\n=== Reading HTML Form ===")
-        html_content = read_html_file(sample_form_path)
+         # Step 2: Fetch and select template from API
+        print("\n=== Fetching Templates from RadReport API ===")
+        template_id = select_template()
+        print(f"Fetching details for template ID {template_id}...")
+        template_details = get_template_details(template_id)
+        # The template_details may be in RELAX NG XML or similar; you may need to convert it to HTML or JSON.
+        # For now, let's assume you extract the HTML form from the details:
+        html_content = template_details.get('html', None)
         if not html_content:
+            print("No HTML form found in template details.")
             return
 
         # Step 3: Convert HTML to JSON
@@ -160,10 +165,17 @@ def main():
         print("Thank you for completing the medical prescription form. Here's a summary of the information provided:")
         
         for field_name, field_data in filled_form.items():
-            if not field_data.get('hidden', False):
-                display_name = " ".join(word.capitalize() for word in field_name.split('_'))
-                value = field_data.get('value', 'Not provided')
-                print(f"- {display_name}: {value}")
+            display_name = " ".join(word.capitalize() for word in field_name.split('_'))
+            
+            # Handle both dict and string field data
+            if isinstance(field_data, dict):
+                if not field_data.get('hidden', False):
+                    value = field_data.get('value', 'Not provided')
+                    print(f"- {display_name}: {value}")
+            else:
+                print(f"- {display_name}: {field_data}")
+
+
         
         # Step 9: Save results
         print("\n=== Saving Results ===")
