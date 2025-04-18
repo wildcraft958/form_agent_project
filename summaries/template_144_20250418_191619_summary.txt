@@ -1,0 +1,6 @@
+Here is the medical metadata summary in the required format:
+
+1. Clinical Application: Chest Radiology
+2. Primary Function: Assists diagnosis
+3. Distinctive Attributes: Standardized reporting, Clot localization markers
+4. Compliance/Users: German radiology compliance, Designed for radiologists and imaging specialists

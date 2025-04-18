@@ -1,6 +1,0 @@
-Here is the medical metadata summary in the required structure:
-
-1. Clinical Application: Computed Tomography
-2. Primary Function: Assists diagnosis
-3. Distinctive Attributes: Structured findings documentation, Clot localization markers
-4. Compliance/Users: German radiology compliance integration, Designed for radiologists and imaging specialists

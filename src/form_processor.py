@@ -201,29 +201,86 @@ class FormProcessor:
     def _get_field_examples(self, field_name, field_type):
         """Provide contextually appropriate examples, using form context and LLM if available."""
         # Try to generate examples using LLM if available
-        if self.form_context and hasattr(self.llm_interface, "generate_examples"):
+        if hasattr(self.llm_interface, "generate_examples"):
             try:
+                # Pass both form context and form structure for better context
                 llm_examples = self.llm_interface.generate_examples(
                     field_name=field_name,
                     field_type=field_type,
-                    form_context=self.form_context
+                    form_context=self.form_context,
+                    form_structure=self.form_data
                 )
-                if llm_examples:
-                    # If LLM returns a string, split by commas
-                    if isinstance(llm_examples, str):
-                        examples = [e.strip() for e in llm_examples.split(",") if e.strip()]
-                        if examples:
-                            return ", ".join(examples)
-                    # If LLM returns a list, join as string
-                    elif isinstance(llm_examples, list):
-                        return ", ".join(str(e) for e in llm_examples)
-                    # Otherwise, fallback
-                    return str(llm_examples)
-            except Exception as e:
-                console.print(Panel(f"[yellow]LLM failed to generate examples for '{field_name}': {e}[/yellow]", title="LLM Example Warning", border_style="yellow"))
-                # Fallback to default value if LLM fails
                 
-        return "Appropriate text for this field"
+                if llm_examples:
+                    if isinstance(llm_examples, list) and llm_examples:
+                        # Format examples based on field type
+                        if field_type == 'date':
+                            # Format dates consistently
+                            return ", ".join([ex if '/' in ex or '-' in ex else ex for ex in llm_examples])
+                        elif field_type == 'select' or field_type == 'radio':
+                            # For select/radio, show options as a comma-separated list
+                            return ", ".join([f'"{ex}"' for ex in llm_examples])
+                        else:
+                            # Default formatting for other field types
+                            return ", ".join(llm_examples)
+                    elif isinstance(llm_examples, str):
+                        # If it's already a string, just return it
+                        return llm_examples
+            except Exception as e:
+                console.print(Panel(f"[yellow]LLM failed to generate examples for '{field_name}': {e}[/yellow]", 
+                                title="LLM Example Warning", border_style="yellow"))
+        
+        # Fallback examples based on field type and name
+        field_name_lower = field_name.lower()
+        
+        # Common fallback examples dictionary
+        fallbacks = {
+            # Basic field types
+            "date": "04/18/2025, 05/22/2025, 03/15/2025",
+            "number": "42, 7.5, 100",
+            "email": "example@hospital.org, doctor@clinic.com, patient@email.com",
+            "phone": "(555) 123-4567, (555) 987-6543, (555) 555-5555",
+            "textarea": "Normal findings, Patient responded well to treatment, No significant abnormalities",
+            
+            # Patient information
+            "name": "John Smith, Maria Rodriguez, Aisha Patel",
+            "dob": "05/12/1985, 10/23/1972, 01/30/1995",
+            "mrn": "MRN12345, 456789, PT-987654",
+            "id": "PT-12345, ID98765, MRN-54321",
+            
+            # Vitals
+            "temperature": "98.6 F, 37.0 C, 99.1 F",
+            "blood_pressure": "120/80 mmHg, 135/85 mmHg, 110/70 mmHg",
+            "heart_rate": "72 bpm, 85 bpm, 64 bpm",
+            "respiratory": "16/min, 18/min, 14/min",
+            
+            # Medical
+            "diagnosis": "Acute Myocardial Infarction, Type 2 Diabetes Mellitus, Community-acquired Pneumonia",
+            "symptoms": "Chest pain radiating to left arm, Persistent dry cough for 2 weeks, Fatigue and shortness of breath",
+            "allergies": "Penicillin, No known allergies, Sulfa drugs",
+            "medications": "Lisinopril 10mg daily, Metformin 500mg BID, None",
+            
+            # Radiology
+            "impression": "No acute abnormality, Bibasilar atelectasis, Degenerative changes",
+            "findings": "Normal heart size, 2.5 cm hypodense lesion, No evidence of fracture",
+            "technique": "CT without contrast, Portable AP chest x-ray, MRI without contrast",
+            
+            # Procedure
+            "procedure": "Colonoscopy, Cardiac Catheterization, Total Hip Arthroplasty",
+            "indication": "Screening, Chest pain, Joint pain",
+            
+            # Default
+            "default": "Appropriate text for this field"
+        }
+        
+        # Try to find matching fallback
+        for key in fallbacks.keys():
+            if key in field_name_lower:
+                return fallbacks[key]
+        
+        # Return default examples if no match found
+        return fallbacks["default"]
+
     
     def _format_field_name(self, field_name):
         """Format field name for display (convert snake_case to Title Case)."""
