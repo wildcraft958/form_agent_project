@@ -1,0 +1,53 @@
+{
+    "currentVersion": {
+        "created": "2023-05-24 13:21:01",
+        "template_version": "d40e0cbd-fa35-11ed-8263-12acaf12509b"
+    },
+    "details": {
+        "SUCCESS": true,
+        "DATA": {
+            "currentVersion": {
+                "created": "2023-05-24 13:21:01",
+                "template_version": "d40e0cbd-fa35-11ed-8263-12acaf12509b"
+            },
+            "prevVersions": [],
+            "template_id": "RPT50890",
+            "selectedVersion": "d40e0cbd-fa35-11ed-8263-12acaf12509b",
+            "is_public": null,
+            "TLAP_Approved": "1",
+            "published_at": "2024-05-15 17:00:00",
+            "title": "MRI Cervical Spine",
+            "template_status": null,
+            "description": "",
+            "author": "rsna_00892326",
+            "firstname": "Caleb",
+            "lastname": "Epps",
+            "originalAuthor": "rsna_00892326",
+            "originalAuthorFirstname": "Caleb",
+            "originalAuthorLastName": "Epps",
+            "views": "3601",
+            "downloads": "2136",
+            "created": "2023-05-24 13:21:01",
+            "dataType": "html",
+            "reviewInProgress": null,
+            "englishName": "English",
+            "langCode": "en",
+            "favCount": "1",
+            "templateData": "<!DOCTYPE html>\n<html>\n    <head>\n        <title>MRI Cervical Spine</title>\n        <meta charset=\"UTF-8\" />\n        <meta name=\"dcterms.identifier\" content=\"e789d490-5d81-4dde-a32e-5ac12ae3a589\" />\n        <meta name=\"dcterms.title\" content=\"MRI Cervical Spine\" />\n        <meta name=\"dcterms.description\" content=\"MRI Cervical Spine\" />\n        <meta name=\"dcterms.type\" content=\"IMAGE_REPORT_TEMPLATE\" />\n        <meta name=\"dcterms.language\" content=\"en\" />\n        <meta name=\"dcterms.publisher\" content=\"\" />\n        <meta name=\"dcterms.rights\" content=\"May be used freely, subject to license agreement\" />\n        <meta name=\"dcterms.cdesets\" content=\"[]\" />\n        <meta name=\"dcterms.license\" content=\"http://www.radreport.org/license.pdf\" />\n        <meta name=\"dcterms.date\" content=\"2023-05-24\" />\n        <meta name=\"dcterms.creator\" content=\"Caleb Epps\" />\n        <script type=\"text/xml\">\n            <template_attributes>\n                <coded_content>\n                    <coding_schemes>\n                        <coding_scheme name=\"RADLEX\" designator=\"2.16.840.1.113883.6.256\"></coding_scheme>\n                        <coding_scheme name=\"LOINC\" designator=\"2.16.840.1.113883.6.1\"></coding_scheme>\n                    </coding_schemes>\n                    <entry origtxt=\"procedureInformation\">\n                        <term>\n                            <code meaning=\"Current Imaging Procedure Description\" value=\"55111-9\" scheme=\"LOINC\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"findings\">\n                        <term>\n                            <code meaning=\"Procedure Findings\" value=\"59776-5\" scheme=\"LOINC\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"comparisons\">\n                        <term>\n                            <code meaning=\"Radiology Comparison Study\" value=\"18834-2\" scheme=\"LOINC\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"impression\">\n                        <term>\n                            <code meaning=\"Impressions\" value=\"19005-8\" scheme=\"LOINC\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"clinicalInformation\">\n                        <term>\n                            <code meaning=\"Clinical Information\" value=\"55752-0\" scheme=\"LOINC\"></code>\n                        </term>\n                    </entry>\n                </coded_content>\n            </template_attributes>\n        </script>\n    </head>\n    <body>\n        <section id=\"procedureInformation\" class=\"level1\" data-section-name=\"Procedure Information\">\n            <header class=\"level1\">\n                Procedure Information\n            </header>\n            <p title=\"\">\n                <label for=\"procedureInformationText\"></label>\n                <textarea rows=\"3\" cols=\"100\" id=\"procedureInformationText\" name=\"\" data-field-type=\"TEXTAREA\" data-field-completion-action=\"NONE\">Sag. T2 frFSE, Sag. T1 FSE, Sag. STIR, Axial 3D Merge, Axial T1 FSE and Sag. T2 oblique.</textarea>\n            </p>\n        </section>\n        <section id=\"clinicalInformation\" class=\"level1\" data-section-name=\"Clinical Information\">\n            <header class=\"level1\">\n                Clinical Information\n            </header>\n            <p title=\"\">\n                <label for=\"clinicalInformationText\"></label>\n                <textarea rows=\"3\" cols=\"100\" id=\"clinicalInformationText\" name=\"\" data-field-type=\"TEXTAREA\" data-field-completion-action=\"NONE\">Exam Date:  Exam Type: MRI Cervical Spine Name of Patient:  Date of Birth: </textarea>\n            </p>\n        </section>\n        <section id=\"comparisons\" class=\"level1\" data-section-name=\"Comparison\">\n            <header class=\"level1\">\n                Comparison\n            </header>\n            <p title=\"\">\n                <label for=\"comparisonsText\"></label>\n                <textarea rows=\"3\" cols=\"100\" id=\"comparisonsText\" name=\"\" data-field-type=\"TEXTAREA\" data-field-completion-action=\"NONE\"></textarea>\n            </p>\n        </section>\n        <section id=\"findings\" class=\"level1\" data-section-name=\"Findings\">\n            <header class=\"level1\">\n                Findings\n            </header>\n            <p title=\"\">\n                <label for=\"findingsText\"></label>\n                <textarea rows=\"3\" cols=\"100\" id=\"findingsText\" name=\"\" data-field-type=\"TEXTAREA\" data-field-completion-action=\"NONE\">Bone marrow signal intensity is normal. No evidence for fracture. Vertebral bodies are normally aligned. Vertebral body heights are preserved. Normal cord signal without evidence of syringomyelia. The cranio-vertebral junction appears normal. Visualized soft tissues of the cervical neck appear normal. Level-by-level degenerative findings as follows:  C2-C3: No significant spinal canal stenosis or neural foraminal narrowing.   [Mild / Mod / Severe] Disc desiccation with diffuse [Disc / Annular] bulge and focal [Anterior / Posterior (Central / Paracentral / Foraminal /Extraforaminal)] disc [Protrusion / Extrusion]. Associated end-plate changes include [Modic I, II, III changes / End-plate irregularity / Spondylosis (osteophytes) / Degenerative instability (vertebral body height loss / Listhesis (Type I (above or below degen level) / Type II (at degen level)]. These findings result in [Mild / Mod / Severe] spinal canal stenosis and [Mild / Mod / Severe] [Right/Left] neural foraminal narrowing.  C3-C4: No significant spinal canal stenosis or neural foraminal narrowing.  C4-C5: No significant spinal canal stenosis or neural foraminal narrowing.  C5-C6: No significant spinal canal stenosis or neural foraminal narrowing.  C6-C7: No significant spinal canal stenosis or neural foraminal narrowing.  C7-T1: No significant spinal canal stenosis or neural foraminal narrowing.</textarea>\n            </p>\n        </section>\n        <section id=\"impression\" class=\"level1\" data-section-name=\"Impression\">\n            <header class=\"level1\">\n                Impression\n            </header>\n            <p title=\"\">\n                <label for=\"impressionText\"></label>\n                <textarea rows=\"3\" cols=\"100\" id=\"impressionText\" name=\"\" data-field-type=\"TEXTAREA\" data-field-completion-action=\"NONE\"></textarea>\n            </p>\n        </section>\n    </body>\n</html>\n",
+            "organizations": [],
+            "specialty": [
+                {
+                    "code": "NR",
+                    "name": "Neuroradiology"
+                }
+            ],
+            "coauthors": [],
+            "cdeSets": [],
+            "translators": [],
+            "references": [],
+            "procedures": [],
+            "radlex": [],
+            "isFavorite": "0"
+        }
+    }
+}

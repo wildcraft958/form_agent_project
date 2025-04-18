@@ -41,13 +41,16 @@ def load_templates_data(file_path="src/database/templates.json"):
         logger.error(f"Error loading templates: {e}")
         return []
 
-# Save API response to file
+# Save API response to file in samples folder
 def save_response_to_file(response_data, template_id):
-    output_file = f"template_{template_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    samples_dir = os.path.join(os.getcwd(), "samples")
+    os.makedirs(samples_dir, exist_ok=True)
+    filename = f"template_{template_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    output_path = os.path.join(samples_dir, filename)
     try:
-        with open(output_file, 'w') as file:
+        with open(output_path, 'w') as file:
             json.dump(response_data, file, indent=4)
-        logger.info(f"Response saved to {output_file}")
+        logger.info(f"Response saved to {output_path}")
     except Exception as e:
         logger.error(f"Error saving response: {e}")
 

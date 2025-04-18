@@ -1,127 +1,51 @@
 {
-  "patient_name": {
-    "type": "text",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Patient Name:",
-    "description": "Enter the patient's full legal name as it appears on their medical records.",
-    "validation": "^[A-Za-z\\s\\-'.]+$",
-    "validation_message": "Name should contain only letters, spaces, hyphens, and apostrophes."
-  },
-  "patient_dob": {
-    "type": "date",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Date of Birth:",
-    "description": "Enter the patient's date of birth in MM/DD/YYYY format."
-  },
-  "patient_id": {
-    "type": "text",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Patient ID:",
-    "description": "Enter the patient's unique medical ID number or insurance identifier."
-  },
-  "medication": {
-    "type": "text",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Medication:",
-    "description": "Enter the prescribed medication name (generic or brand name)."
-  },
-  "dosage": {
-    "type": "text",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Dosage:",
-    "description": "Enter the prescribed dosage amount (e.g., 500mg, 10ml).",
-    "validation": "^\\d+(\\.\\d+)?\\s*[a-zA-Z]+$",
-    "validation_message": "Dosage should include a number followed by a unit (e.g., 10mg, 5ml)."
-  },
-  "duration": {
-    "type": "number",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Duration (days):",
-    "description": "For how many days should the medication be taken?",
-    "validation": "^\\d+$",
-    "validation_message": "Duration should be a positive whole number of days."
-  },
-  "doctor_name": {
-    "type": "text",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Doctor Name:"
-  },
-  "doctor_signature": {
-    "type": "text",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Doctor Signature:"
-  },
-  "prescription_date": {
-    "type": "date",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Prescription Date:"
-  },
-  "diagnosis": {
-    "type": "textarea",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Diagnosis:",
-    "description": "Enter the patient's diagnosis or reason for prescription."
-  },
-  "special_instructions": {
-    "type": "textarea",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Special Instructions:",
-    "description": "Enter any special instructions for taking this medication (e.g., with food, before bedtime)."
-  },
-  "frequency": {
+  "\\\"\\\"": {
     "type": "select",
     "options": [
       {
-        "value": "once_daily",
-        "text": "Once Daily",
+        "value": "\\\"CO-RADS",
+        "text": "CO-RADS 0",
+        "selected": true
+      },
+      {
+        "value": "\\\"CO-RADS",
+        "text": "CO-RADS 1",
         "selected": false
       },
       {
-        "value": "twice_daily",
-        "text": "Twice Daily",
+        "value": "\\\"CO-RADS",
+        "text": "CO-RADS 2",
         "selected": false
       },
       {
-        "value": "three_times_daily",
-        "text": "Three Times Daily",
+        "value": "\\\"CO-RADS",
+        "text": "CO-RADS 3",
         "selected": false
       },
       {
-        "value": "four_times_daily",
-        "text": "Four Times Daily",
+        "value": "\\\"CO-RADS",
+        "text": "CO-RADS 4",
         "selected": false
       },
       {
-        "value": "as_needed",
-        "text": "As Needed",
+        "value": "\\\"CO-RADS",
+        "text": "CO-RADS 5",
+        "selected": false
+      },
+      {
+        "value": "\\\"CO-RADS",
+        "text": "CO-RADS 6",
         "selected": false
       }
     ],
     "value": "",
+    "required": false
+  },
+  "\\\"CHECKBOX_1588531343856\\\"": {
+    "type": "\\\"checkbox\\\"",
+    "value": "\\\"Suspect",
+    "placeholder": "",
     "required": false,
-    "label": "Frequency:",
-    "description": "How often should the patient take this medication?"
+    "label": "Anamnesis"
   }
 }

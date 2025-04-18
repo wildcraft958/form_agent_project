@@ -1,77 +1,310 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Medical Prescription Form</title>
-</head>
-<body>
-    <h1>Medical Prescription</h1>
-    
-    <form id="prescription-form">
-        <div>
-            <label for="patient_name">Patient Name:</label>
-            <input type="text" id="patient_name" name="patient_name">
-        </div>
-        
-        <div>
-            <label for="patient_dob">Date of Birth:</label>
-            <input type="date" id="patient_dob" name="patient_dob">
-        </div>
-        
-        <div>
-            <label for="patient_id">Patient ID:</label>
-            <input type="text" id="patient_id" name="patient_id">
-        </div>
-        
-        <div>
-            <label for="diagnosis">Diagnosis:</label>
-            <textarea id="diagnosis" name="diagnosis" rows="3"></textarea>
-        </div>
-        
-        <div>
-            <label for="medication">Medication:</label>
-            <input type="text" id="medication" name="medication">
-        </div>
-        
-        <div>
-            <label for="dosage">Dosage:</label>
-            <input type="text" id="dosage" name="dosage">
-        </div>
-        
-        <div>
-            <label for="frequency">Frequency:</label>
-            <select id="frequency" name="frequency">
-                <option value="once_daily">Once Daily</option>
-                <option value="twice_daily">Twice Daily</option>
-                <option value="three_times_daily">Three Times Daily</option>
-                <option value="four_times_daily">Four Times Daily</option>
-                <option value="as_needed">As Needed</option>
-            </select>
-        </div>
-        
-        <div>
-            <label for="duration">Duration (days):</label>
-            <input type="number" id="duration" name="duration" min="1">
-        </div>
-        
-        <div>
-            <label for="special_instructions">Special Instructions:</label>
-            <textarea id="special_instructions" name="special_instructions" rows="3"></textarea>
-        </div>
-        
-        <div>
-            <label for="doctor_name">Doctor Name:</label>
-            <input type="text" id="doctor_name" name="doctor_name">
-        </div>
-        
-        <div>
-            <label for="doctor_signature">Doctor Signature:</label>
-            <input type="text" id="doctor_signature" name="doctor_signature">
-        </div>
-        
-        <div>
-            <label for="prescription_date">Prescription Date:</label>
-            <input type="date" id="prescription_date" name="prescription_date">
-        </div>
-    </form>
-</body>
-</html>
+<!DOCTYPE html>\n<html>\n
+
+<head>\n <title>CT report - COVID-19</title>\n
+    <meta charset=\"UTF-8\" />\n
+    <meta name=\"dcterms.identifier\" content=\"ab5ff4a3-5b7b-4591-af3a-9231299d1996\" />\n
+    <meta name=\"dcterms.title\" content=\"CT report - COVID-19\" />\n
+    <meta name=\"dcterms.description\" content=\"Structured report prepared by the SIRM working group on COVID-19\" />\n
+    <meta name=\"dcterms.type\" content=\"IMAGE_REPORT_TEMPLATE\" />\n
+    <meta name=\"dcterms.language\" content=\"en\" />\n
+    <meta name=\"dcterms.publisher\" content=\"Italian Society of Medical and Interventional Radiology\" />\n
+    <meta name=\"dcterms.rights\" content=\"May be used freely, subject to license agreement\" />\n
+    <meta name=\"dcterms.license\" content=\"http://www.radreport.org/license.pdf\" />\n
+    <meta name=\"dcterms.date\" content=\"2020-05-05\" />\n
+    <meta name=\"dcterms.creator\" content=\"Emanuele Neri, Roberto Grassi\" />\n
+    <meta name=\"dcterms.contributor\" content=\"Francesca Coppola, Nicola Sverzellati, Annarita Larici, Giorgia Dal
+        Piaz, Palmino Sacco, Maria Antonietta Mazzei, Beatrice Feragalli\" />\n
+    <script
+        type=\"text/xml\">\n            <template_attributes>\n                <coded_content>\n                    <coding_schemes>\n                        <coding_scheme name=\"RADLEX\" designator=\"2.16.840.1.113883.6.256\"></coding_scheme>\n                        <coding_scheme name=\"LOINC\" designator=\"2.16.840.1.113883.6.1\"></coding_scheme>\n                    </coding_schemes>\n                    <entry origtxt=\"SELECTION_LIST_1588672703477_0\">\n                        <term>\n                            <code meaning=\"supine position\" value=\"http://radlex.org/RID/RID10421\" scheme=\"RADLEX\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"SELECTION_LIST_1588672703477_1\">\n                        <term>\n                            <code meaning=\"prone position\" value=\"http://radlex.org/RID/RID10422\" scheme=\"RADLEX\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"findings\">\n                        <term>\n                            <code meaning=\"Procedure Findings\" value=\"59776-5\" scheme=\"LOINC\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"SELECTION_LIST_1588531343849_0\">\n                        <term>\n                            <code meaning=\"supine position\" value=\"http://radlex.org/RID/RID10421\" scheme=\"RADLEX\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"SELECTION_LIST_1588531343849_1\">\n                        <term>\n                            <code meaning=\"prone position\" value=\"http://radlex.org/RID/RID10422\" scheme=\"RADLEX\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"procedureInformation\">\n                        <term>\n                            <code meaning=\"Current Imaging Procedure Description\" value=\"55111-9\" scheme=\"LOINC\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"comparisons\">\n                        <term>\n                            <code meaning=\"Radiology Comparison Study\" value=\"18834-2\" scheme=\"LOINC\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"impression\">\n                        <term>\n                            <code meaning=\"Impressions\" value=\"19005-8\" scheme=\"LOINC\"></code>\n                        </term>\n                    </entry>\n                    <entry origtxt=\"clinicalInformation\">\n                        <term>\n                            <code meaning=\"Clinical Information\" value=\"55752-0\" scheme=\"LOINC\"></code>\n                        </term>\n                    </entry>\n                </coded_content>\n            </template_attributes>\n        </script>
+    \n
+</head>\n
+
+<body>\n <section id=\"procedureInformation\" class=\"level1\" data-section-name=\"Procedure Information\">\n <header
+            class=\"level1\">\n Procedure Information\n </header>\n <p title=\"\">\n <label
+                for=\"NUMBER_1588531343842\">Thickness</label>\n <span>\n <input type=\"number\" step=\"1.0\"
+                    data-field-units=\"mm\" id=\"NUMBER_1588531343842\" name=\"\" data-field-type=\"NUMBER\"
+                    data-field-completion-action=\"NONE\" value=\"\" />\n mm\n </span>\n </p>\n <p title=\"\">\n <label
+                for=\"SELECTION_LIST_1588531343843\">Reconstruction algorithm</label>\n <select multiple=\"multiple\"
+                id=\"SELECTION_LIST_1588531343843\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                data-field-completion-action=\"NONE\" value=\"Standard\">\n <option
+                    id=\"SELECTION_LIST_1588531343843_0\" value=\"Standard\" name=\"SELECTION_LIST_1588531343843\"
+                    selected=\"\">Standard</option>\n <option id=\"SELECTION_LIST_1588531343843_1\" value=\"Iterative\"
+                    name=\"SELECTION_LIST_1588531343843\">Iterative</option>\n </select>\n </p>\n <p title=\"\">\n
+            <label for=\"SELECTION_LIST_1588580525105\">Kernel</label>\n <select multiple=\"multiple\"
+                id=\"SELECTION_LIST_1588580525105\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                data-field-completion-action=\"NONE\" value=\"Standard\">\n <option
+                    id=\"SELECTION_LIST_1588580525105_0\" value=\"Standard\" name=\"SELECTION_LIST_1588580525105\"
+                    selected=\"\">Standard</option>\n <option id=\"SELECTION_LIST_1588580525105_1\"
+                    value=\"High-resolution\" name=\"SELECTION_LIST_1588580525105\">High-resolution</option>\n
+            </select>\n </p>\n <p title=\"\">\n <label for=\"SELECTION_LIST_1588531343849\">Decubitus</label>\n <select
+                multiple=\"multiple\" id=\"SELECTION_LIST_1588531343849\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                data-field-completion-action=\"NONE\" value=\"Supine\">\n <option id=\"SELECTION_LIST_1588531343849_0\"
+                    value=\"Supine\" name=\"SELECTION_LIST_1588531343849\" selected=\"\">Supine</option>\n <option
+                    id=\"SELECTION_LIST_1588531343849_1\" value=\"Prone\" name=\"SELECTION_LIST_1588531343849\">Prone
+                </option>\n <option id=\"SELECTION_LIST_1588531343849_2\" value=\"Supine and Prone\"
+                    name=\"SELECTION_LIST_1588531343849\">Supine and Prone</option>\n </select>\n </p>\n <p title=\"\">
+            \n <label for=\"SELECTION_LIST_1588672703477\">Contrast media</label>\n <select multiple=\"multiple\"
+                id=\"SELECTION_LIST_1588672703477\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                data-field-completion-action=\"NONE\" value=\"yes\">\n <option id=\"SELECTION_LIST_1588672703477_0\"
+                    value=\"yes\" name=\"SELECTION_LIST_1588672703477\" selected=\"\">yes</option>\n <option
+                    id=\"SELECTION_LIST_1588672703477_1\" value=\"no\" name=\"SELECTION_LIST_1588672703477\">no</option>
+                \n </select>\n </p>\n </section>\n <section id=\"clinicalInformation\" class=\"level1\"
+        data-section-name=\"Clinical Information\">\n <header class=\"level1\">\n Clinical Information\n </header>\n <p
+            title=\"\">\n <label for=\"CHECKBOX_1588531343856\">Anamnesis</label>\n <span id=\"CHECKBOX_1588531343856\"
+                name=\"\" data-field-type=\"CHECKBOX\" data-field-completion-action=\"NONE\" value=\"\">\n <br />\n
+                <input id=\"CHECKBOX_1588531343856_0\" type=\"checkbox\" name=\"CHECKBOX_1588531343856\"
+                    value=\"Positive RT-PCR test\">Positive RT-PCR test</input>\n <br />\n <input
+                    id=\"CHECKBOX_1588531343856_1\" type=\"checkbox\" name=\"CHECKBOX_1588531343856\" value=\"Suspect
+                    COVID-19\">Suspect COVID-19</input>\n </span>\n </p>\n <p title=\"\">\n <label
+                for=\"SELECTION_LIST_1588532281044\">Severity of symptoms</label>\n <select multiple=\"multiple\"
+                id=\"SELECTION_LIST_1588532281044\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                data-field-completion-action=\"NONE\" value=\"Mild: No evidence of significant pulmonary dysfunction or
+                damage\">\n <option id=\"SELECTION_LIST_1588532281044_0\" value=\"Mild: No evidence of significant
+                    pulmonary dysfunction or damage\" name=\"SELECTION_LIST_1588532281044\" selected=\"\">Mild: No
+                    evidence of significant pulmonary dysfunction or damage</option>\n <option
+                    id=\"SELECTION_LIST_1588532281044_1\" value=\"Moderate-to-severe: Evidence of significant pulmonary
+                    dysfunction or damage\" name=\"SELECTION_LIST_1588532281044\">Moderate-to-severe: Evidence of
+                    significant pulmonary dysfunction or damage</option>\n </select>\n </p>\n <p title=\"\">\n <label
+                for=\"SELECTION_LIST_1588532281031\">Pre-test probability of COVID</label>\n <select
+                multiple=\"multiple\" id=\"SELECTION_LIST_1588532281031\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                data-field-completion-action=\"NONE\" value=\"Low: Sporadic transmission\">\n <option
+                    id=\"SELECTION_LIST_1588532281031_0\" value=\"Low: Sporadic transmission\"
+                    name=\"SELECTION_LIST_1588532281031\" selected=\"\">Low: Sporadic transmission</option>\n <option
+                    id=\"SELECTION_LIST_1588532281031_1\" value=\"Medium: Clustered transmission\"
+                    name=\"SELECTION_LIST_1588532281031\">Medium: Clustered transmission</option>\n <option
+                    id=\"SELECTION_LIST_1588532281031_2\" value=\"High: Community transmission\"
+                    name=\"SELECTION_LIST_1588532281031\">High: Community transmission</option>\n </select>\n </p>\n
+    </section>\n <section id=\"comparisons\" class=\"level1\" data-section-name=\"Comparison\">\n <header
+            class=\"level1\">\n Comparison\n </header>\n <p title=\"\">\n <label
+                for=\"SELECTION_LIST_1588532281078\">Previous exams</label>\n <select multiple=\"multiple\"
+                id=\"SELECTION_LIST_1588532281078\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                data-field-completion-action=\"NONE\" value=\"Chest X-ray\">\n <option
+                    id=\"SELECTION_LIST_1588532281078_0\" value=\"Chest X-ray\" name=\"SELECTION_LIST_1588532281078\"
+                    selected=\"\">Chest X-ray</option>\n <option id=\"SELECTION_LIST_1588532281078_1\" value=\"CT\"
+                    name=\"SELECTION_LIST_1588532281078\">CT</option>\n </select>\n </p>\n </section>\n <section
+        id=\"findings\" class=\"level1\" data-section-name=\"Findings\">\n <header class=\"level1\">\n Findings\n
+        </header>\n <section id=\"SECTION_HEADER_1588532280990\" class=\"level2\" data-section-name=\"PARENCHYMA: GROUND
+            GLASS OPACITIES\">\n <header class=\"level2\">\n PARENCHYMA: GROUND GLASS OPACITIES\n </header>\n <p
+                title=\"\">\n <label for=\"SELECTION_LIST_1588532280986\">Location</label>\n <select
+                    multiple=\"multiple\" id=\"SELECTION_LIST_1588532280986\" name=\"\"
+                    data-field-type=\"SELECTION_LIST\" data-field-completion-action=\"NONE\" value=\"Right
+                    unilateral\">\n <option id=\"SELECTION_LIST_1588532280986_0\" value=\"Right unilateral\"
+                        name=\"SELECTION_LIST_1588532280986\" selected=\"\">Right unilateral</option>\n <option
+                        id=\"SELECTION_LIST_1588532280986_1\" value=\"Left unilateral\"
+                        name=\"SELECTION_LIST_1588532280986\">Left unilateral</option>\n <option
+                        id=\"SELECTION_LIST_1588532280986_2\" value=\"Bilateral\" name=\"SELECTION_LIST_1588532280986\">
+                        Bilateral</option>\n </select>\n </p>\n <p title=\"\">\n <label
+                    for=\"SELECTION_LIST_1588532281117\">Distribution in the axial plane</label>\n <select
+                    multiple=\"multiple\" id=\"SELECTION_LIST_1588532281117\" name=\"\"
+                    data-field-type=\"SELECTION_LIST\" data-field-completion-action=\"NONE\" value=\"Diffuse\">\n
+                    <option id=\"SELECTION_LIST_1588532281117_0\" value=\"Diffuse\"
+                        name=\"SELECTION_LIST_1588532281117\" selected=\"\">Diffuse</option>\n <option
+                        id=\"SELECTION_LIST_1588532281117_1\" value=\"Predominantly peripheral\"
+                        name=\"SELECTION_LIST_1588532281117\">Predominantly peripheral</option>\n <option
+                        id=\"SELECTION_LIST_1588532281117_2\" value=\"Predominantly central\"
+                        name=\"SELECTION_LIST_1588532281117\">Predominantly central</option>\n <option
+                        id=\"SELECTION_LIST_1588532281117_3\" value=\"Dependent on decubitus\"
+                        name=\"SELECTION_LIST_1588532281117\">Dependent on decubitus</option>\n <option
+                        id=\"SELECTION_LIST_1588532281117_4\" value=\"Non-dependent on decubitus\"
+                        name=\"SELECTION_LIST_1588532281117\">Non-dependent on decubitus</option>\n </select>\n </p>\n
+            <p title=\"\">\n <label for=\"SELECTION_LIST_1588532280993\">Cranio-caudal distribution</label>\n <select
+                    multiple=\"multiple\" id=\"SELECTION_LIST_1588532280993\" name=\"\"
+                    data-field-type=\"SELECTION_LIST\" data-field-completion-action=\"NONE\" value=\"Diffuse\">\n
+                    <option id=\"SELECTION_LIST_1588532280993_0\" value=\"Diffuse\"
+                        name=\"SELECTION_LIST_1588532280993\" selected=\"\">Diffuse</option>\n <option
+                        id=\"SELECTION_LIST_1588532280993_1\" value=\"Multifocal / patching\"
+                        name=\"SELECTION_LIST_1588532280993\">Multifocal / patching</option>\n <option
+                        id=\"SELECTION_LIST_1588532280993_2\" value=\"Predominant in the upper lobes\"
+                        name=\"SELECTION_LIST_1588532280993\">Predominant in the upper lobes</option>\n <option
+                        id=\"SELECTION_LIST_1588532280993_3\" value=\"Predominant in the lower lobes\"
+                        name=\"SELECTION_LIST_1588532280993\">Predominant in the lower lobes</option>\n </select>\n </p>
+            \n </section>\n <section id=\"SECTION_HEADER_1588537800380\" class=\"level2\"
+            data-section-name=\"PARENCHYMA: CONSOLIDATIONS\">\n <header class=\"level2\">\n PARENCHYMA: CONSOLIDATIONS\n
+            </header>\n <p title=\"\">\n <label for=\"SELECTION_LIST_1588537800382\">Location</label>\n <select
+                    multiple=\"multiple\" id=\"SELECTION_LIST_1588537800382\" name=\"\"
+                    data-field-type=\"SELECTION_LIST\" data-field-completion-action=\"NONE\" value=\"Right
+                    unilateral\">\n <option id=\"SELECTION_LIST_1588537800382_0\" value=\"Right unilateral\"
+                        name=\"SELECTION_LIST_1588537800382\" selected=\"\">Right unilateral</option>\n <option
+                        id=\"SELECTION_LIST_1588537800382_1\" value=\"Left unilateral\"
+                        name=\"SELECTION_LIST_1588537800382\">Left unilateral</option>\n <option
+                        id=\"SELECTION_LIST_1588537800382_2\" value=\"Bilateral\" name=\"SELECTION_LIST_1588537800382\">
+                        Bilateral</option>\n </select>\n </p>\n <p title=\"\">\n <label
+                    for=\"SELECTION_LIST_1588537800383\">Distribution in the axial plane</label>\n <select
+                    multiple=\"multiple\" id=\"SELECTION_LIST_1588537800383\" name=\"\"
+                    data-field-type=\"SELECTION_LIST\" data-field-completion-action=\"NONE\" value=\"Diffuse\">\n
+                    <option id=\"SELECTION_LIST_1588537800383_0\" value=\"Diffuse\"
+                        name=\"SELECTION_LIST_1588537800383\" selected=\"\">Diffuse</option>\n <option
+                        id=\"SELECTION_LIST_1588537800383_1\" value=\"Predominantly peripheral\"
+                        name=\"SELECTION_LIST_1588537800383\">Predominantly peripheral</option>\n <option
+                        id=\"SELECTION_LIST_1588537800383_2\" value=\"Predominantly central\"
+                        name=\"SELECTION_LIST_1588537800383\">Predominantly central</option>\n <option
+                        id=\"SELECTION_LIST_1588537800383_3\" value=\"Dependent on decubitus\"
+                        name=\"SELECTION_LIST_1588537800383\">Dependent on decubitus</option>\n <option
+                        id=\"SELECTION_LIST_1588537800383_4\" value=\"Non-dependent on decubitus\"
+                        name=\"SELECTION_LIST_1588537800383\">Non-dependent on decubitus</option>\n </select>\n </p>\n
+            <p title=\"\">\n <label for=\"SELECTION_LIST_1588537800384\">Cranio-caudal distribution</label>\n <select
+                    multiple=\"multiple\" id=\"SELECTION_LIST_1588537800384\" name=\"\"
+                    data-field-type=\"SELECTION_LIST\" data-field-completion-action=\"NONE\" value=\"Diffuse\">\n
+                    <option id=\"SELECTION_LIST_1588537800384_0\" value=\"Diffuse\"
+                        name=\"SELECTION_LIST_1588537800384\" selected=\"\">Diffuse</option>\n <option
+                        id=\"SELECTION_LIST_1588537800384_1\" value=\"Multifocal / patching\"
+                        name=\"SELECTION_LIST_1588537800384\">Multifocal / patching</option>\n <option
+                        id=\"SELECTION_LIST_1588537800384_2\" value=\"Predominant in the upper lobes\"
+                        name=\"SELECTION_LIST_1588537800384\">Predominant in the upper lobes</option>\n <option
+                        id=\"SELECTION_LIST_1588537800384_3\" value=\"Predominant in the lower lobes\"
+                        name=\"SELECTION_LIST_1588537800384\">Predominant in the lower lobes</option>\n </select>\n </p>
+            \n <p title=\"\">\n <label for=\"SELECTION_LIST_1588537800488\">Features</label>\n <select
+                    multiple=\"multiple\" id=\"SELECTION_LIST_1588537800488\" name=\"\"
+                    data-field-type=\"SELECTION_LIST\" data-field-completion-action=\"NONE\" value=\"Solid\">\n <option
+                        id=\"SELECTION_LIST_1588537800488_0\" value=\"Solid\" name=\"SELECTION_LIST_1588537800488\"
+                        selected=\"\">Solid</option>\n <option id=\"SELECTION_LIST_1588537800488_1\" value=\"Subsolid\"
+                        name=\"SELECTION_LIST_1588537800488\">Subsolid</option>\n <option
+                        id=\"SELECTION_LIST_1588537800488_2\" value=\"Cavitated\" name=\"SELECTION_LIST_1588537800488\">
+                        Cavitated</option>\n </select>\n </p>\n <p title=\"\">\n <label
+                    for=\"SELECTION_LIST_1588537800385\">Parenchyma: other findings</label>\n <select
+                    multiple=\"multiple\" id=\"SELECTION_LIST_1588537800385\" name=\"\"
+                    data-field-type=\"SELECTION_LIST\" data-field-completion-action=\"NONE\" value=\"Septal
+                    thickness\">\n <option id=\"SELECTION_LIST_1588537800385_0\" value=\"Septal thickness\"
+                        name=\"SELECTION_LIST_1588537800385\" selected=\"\">Septal thickness</option>\n <option
+                        id=\"SELECTION_LIST_1588537800385_1\" value=\"Crazy paving\"
+                        name=\"SELECTION_LIST_1588537800385\">Crazy paving</option>\n <option
+                        id=\"SELECTION_LIST_1588537800385_2\" value=\"Subpleural sparing\"
+                        name=\"SELECTION_LIST_1588537800385\">Subpleural sparing</option>\n <option
+                        id=\"SELECTION_LIST_1588537800385_3\" value=\"Fibrotic distortion\"
+                        name=\"SELECTION_LIST_1588537800385\">Fibrotic distortion</option>\n <option
+                        id=\"SELECTION_LIST_1588537800385_4\" value=\"Reversed halo sign\"
+                        name=\"SELECTION_LIST_1588537800385\">Reversed halo sign</option>\n <option
+                        id=\"SELECTION_LIST_1588537800385_5\" value=\"Pulmonary emphysema\"
+                        name=\"SELECTION_LIST_1588537800385\">Pulmonary emphysema</option>\n <option
+                        id=\"SELECTION_LIST_1588537800385_6\" value=\"Perilobular sign\"
+                        name=\"SELECTION_LIST_1588537800385\">Perilobular sign</option>\n </select>\n </p>\n <p
+                title=\"\">\n <label for=\"SELECTION_LIST_1588580525035\">Pleural effusion</label>\n <select
+                    multiple=\"multiple\" id=\"SELECTION_LIST_1588580525035\" name=\"\"
+                    data-field-type=\"SELECTION_LIST\" data-field-completion-action=\"NONE\" value=\"Unilateral\">\n
+                    <option id=\"SELECTION_LIST_1588580525035_0\" value=\"Unilateral\"
+                        name=\"SELECTION_LIST_1588580525035\" selected=\"\">Unilateral</option>\n <option
+                        id=\"SELECTION_LIST_1588580525035_1\" value=\"Bilateral\" name=\"SELECTION_LIST_1588580525035\">
+                        Bilateral</option>\n </select>\n </p>\n </section>\n <section
+            id=\"SECTION_HEADER_1588580525086\" class=\"level2\" data-section-name=\"PARENCHYMA: NODULES\">\n <header
+                class=\"level2\">\n PARENCHYMA: NODULES\n </header>\n </section>\n <p title=\"\">\n <label
+                for=\"SELECTION_LIST_1588580525071\">Characteristics</label>\n <select multiple=\"multiple\"
+                id=\"SELECTION_LIST_1588580525071\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                data-field-completion-action=\"ALERT\" value=\"Nodules (3mm &lt; diameter &lt;=30mm)\">\n <option
+                    id=\"SELECTION_LIST_1588580525071_0\" value=\"Nodules (3mm &lt; diameter &lt;=30mm)\"
+                    name=\"SELECTION_LIST_1588580525071\" selected=\"\">Nodules (3mm &lt; diameter &lt;=30mm)</option>\n
+                <option id=\"SELECTION_LIST_1588580525071_1\" value=\"Micronodules (diameter &lt;=3mm)\"
+                    name=\"SELECTION_LIST_1588580525071\">Micronodules (diameter &lt;= 3mm)</option>\n <option
+                    id=\"SELECTION_LIST_1588580525071_2\" value=\"Solid\" name=\"SELECTION_LIST_1588580525071\">Solid
+                </option>\n <option id=\"SELECTION_LIST_1588580525071_3\" value=\"Subsolid\"
+                    name=\"SELECTION_LIST_1588580525071\">Subsolid</option>\n <option
+                    id=\"SELECTION_LIST_1588580525071_4\" value=\"Cavitated\" name=\"SELECTION_LIST_1588580525071\">
+                    Cavitated</option>\n <option id=\"SELECTION_LIST_1588580525071_5\" value=\"Tree-in-bud\"
+                    name=\"SELECTION_LIST_1588580525071\">Tree-in-bud</option>\n <option
+                    id=\"SELECTION_LIST_1588580525071_6\" value=\"Centrilobular\" name=\"SELECTION_LIST_1588580525071\">
+                    Centrilobular</option>\n <option id=\"SELECTION_LIST_1588580525071_7\" value=\"Perilymphatic\"
+                    name=\"SELECTION_LIST_1588580525071\">Perilymphatic</option>\n <option
+                    id=\"SELECTION_LIST_1588580525071_8\" value=\"Random\" name=\"SELECTION_LIST_1588580525071\">Random
+                </option>\n </select>\n </p>\n <section id=\"SECTION_HEADER_1588537800394\" class=\"level2\"
+            data-section-name=\"MEDIASTINUM\">\n <header class=\"level2\">\n MEDIASTINUM\n </header>\n <p title=\"\">\n
+                <label for=\"SELECTION_LIST_1588537800396\">Lymphnodes</label>\n <select multiple=\"multiple\"
+                    id=\"SELECTION_LIST_1588537800396\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                    data-field-completion-action=\"NONE\" value=\"Right ilar\">\n <option
+                        id=\"SELECTION_LIST_1588537800396_0\" value=\"Right ilar\" name=\"SELECTION_LIST_1588537800396\"
+                        selected=\"\">Right ilar</option>\n <option id=\"SELECTION_LIST_1588537800396_1\" value=\"Left
+                        hilar\" name=\"SELECTION_LIST_1588537800396\">Left hilar</option>\n <option
+                        id=\"SELECTION_LIST_1588537800396_2\" value=\"Subcarinal\"
+                        name=\"SELECTION_LIST_1588537800396\">Subcarinal</option>\n <option
+                        id=\"SELECTION_LIST_1588537800396_3\" value=\"Antero-superior mediastinum\"
+                        name=\"SELECTION_LIST_1588537800396\">Antero-superior mediastinum</option>\n </select>\n </p>\n
+            <p title=\"\">\n <label for=\"SELECTION_LIST_1588580525025\">Pericardial effusion</label>\n <select
+                    id=\"SELECTION_LIST_1588580525025\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                    data-field-completion-action=\"NONE\" value=\"Evident\">\n <option
+                        id=\"SELECTION_LIST_1588580525025_0\" value=\"Evident\" name=\"SELECTION_LIST_1588580525025\"
+                        selected=\"\">Evident</option>\n <option id=\"SELECTION_LIST_1588580525025_1\" value=\"Not
+                        evident\" name=\"SELECTION_LIST_1588580525025\">Not evident</option>\n </select>\n </p>\n
+        </section>\n <section id=\"SECTION_HEADER_1588672703482\" class=\"level2\" data-section-name=\"VASCULAR
+            FINDINGS\">\n <header class=\"level2\">\n VASCULAR FINDINGS\n </header>\n <p title=\"\">\n <label
+                    for=\"SELECTION_LIST_1588537800405\">Pulmonary Artery Trunk Diameter</label>\n <select
+                    multiple=\"multiple\" id=\"SELECTION_LIST_1588537800405\" name=\"\"
+                    data-field-type=\"SELECTION_LIST\" data-field-completion-action=\"NONE\" value=\"Normal (&lt; 29
+                    mm)\">\n <option id=\"SELECTION_LIST_1588537800405_0\" value=\"Normal (&lt; 29 mm)\"
+                        name=\"SELECTION_LIST_1588537800405\" selected=\"\">Normal (&lt; 29 mm)</option>\n <option
+                        id=\"SELECTION_LIST_1588537800405_1\" value=\"Increased (&gt;=29 mm)\"
+                        name=\"SELECTION_LIST_1588537800405\">Increased (&gt;= 29 mm)</option>\n </select>\n </p>\n <p
+                title=\"\">\n <label for=\"SELECTION_LIST_1588672703483\">Pulmonary embolism</label>\n <select
+                    id=\"SELECTION_LIST_1588672703483\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                    data-field-completion-action=\"NONE\" value=\"\">\n <option id=\"SELECTION_LIST_1588672703483_0\"
+                        value=\"peripheral\" name=\"SELECTION_LIST_1588672703483\">peripheral</option>\n <option
+                        id=\"SELECTION_LIST_1588672703483_1\" value=\"proximal\" name=\"SELECTION_LIST_1588672703483\">
+                        proximal</option>\n </select>\n </p>\n <p title=\"\">\n <label
+                    for=\"SELECTION_LIST_1588672703487\">Vascular changes in parenchyma</label>\n <select
+                    id=\"SELECTION_LIST_1588672703487\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                    data-field-completion-action=\"NONE\" value=\"yes\">\n <option id=\"SELECTION_LIST_1588672703487_0\"
+                        value=\"yes\" name=\"SELECTION_LIST_1588672703487\" selected=\"\">yes</option>\n <option
+                        id=\"SELECTION_LIST_1588672703487_1\" value=\"not\" name=\"SELECTION_LIST_1588672703487\">not
+                    </option>\n </select>\n </p>\n </section>\n <section id=\"SECTION_HEADER_1588537800413\"
+            class=\"level2\" data-section-name=\"BAROTRAUMA\">\n <header class=\"level2\">\n BAROTRAUMA\n </header>\n <p
+                title=\"\">\n <label for=\"SELECTION_LIST_1588537800415\">SIGNS</label>\n <select multiple=\"multiple\"
+                    id=\"SELECTION_LIST_1588537800415\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                    data-field-completion-action=\"NONE\" value=\"Pneumothorax\">\n <option
+                        id=\"SELECTION_LIST_1588537800415_0\" value=\"Pneumothorax\"
+                        name=\"SELECTION_LIST_1588537800415\" selected=\"\">Pneumothorax</option>\n <option
+                        id=\"SELECTION_LIST_1588537800415_1\" value=\"Pneumomediastinum\"
+                        name=\"SELECTION_LIST_1588537800415\">Pneumomediastinum</option>\n <option
+                        id=\"SELECTION_LIST_1588537800415_2\" value=\"Subcutaneous emphysema\"
+                        name=\"SELECTION_LIST_1588537800415\">Subcutaneous emphysema</option>\n </select>\n </p>\n
+        </section>\n </section>\n <section id=\"impression\" class=\"level1\" data-section-name=\"Impression\">\n
+        <header class=\"level1\">\n Impression\n </header>\n <p title=\"\">\n <label
+                for=\"SELECTION_LIST_1588532281081\">Classification</label>\n <select multiple=\"multiple\"
+                id=\"SELECTION_LIST_1588532281081\" name=\"\" data-field-type=\"SELECTION_LIST\"
+                data-field-completion-action=\"NONE\" value=\"Typical\">\n <option id=\"SELECTION_LIST_1588532281081_0\"
+                    value=\"Typical\" name=\"SELECTION_LIST_1588532281081\" selected=\"\">Typical</option>\n <option
+                    id=\"SELECTION_LIST_1588532281081_1\" value=\"Indeterminate\" name=\"SELECTION_LIST_1588532281081\">
+                    Indeterminate</option>\n <option id=\"SELECTION_LIST_1588532281081_2\" value=\"Atypical\"
+                    name=\"SELECTION_LIST_1588532281081\">Atypical</option>\n <option
+                    id=\"SELECTION_LIST_1588532281081_3\" value=\"Negative\" name=\"SELECTION_LIST_1588532281081\">
+                    Negative</option>\n </select>\n </p>\n <p title=\"\">\n <label for=\"TEXT_1588532281114\">Typical -
+                Peripheral, bilateral, GGO with or without consolidation or visible intralobular lines (crazy-paving).
+                Multifocal GGO of rounded morphology with or without consolidation or visible intralobular lines
+                (crazy-paving). Reverse halo sign or other findings of organizing pneumonia (seen later in the
+                disease)</label>\n <input type=\"text\" id=\"TEXT_1588532281114\" name=\"\" data-field-type=\"TEXT\"
+                data-field-completion-action=\"NONE\" value=\"\" />\n </p>\n <p title=\"\">\n <label
+                for=\"TEXT_1588532281115\">Atypical - Absence of typical or indeterminate features and presence of:
+                Isolated lobar or segmental consolidation without GGO. Discrete small nodules (centrilobular, tree
+                in-bud). Lung cavitation. Smooth interlobular septal thickening with pleural effusion</label>\n <input
+                type=\"text\" id=\"TEXT_1588532281115\" name=\"\" data-field-type=\"TEXT\"
+                data-field-completion-action=\"NONE\" value=\"\" />\n </p>\n <p title=\"\">\n <label
+                for=\"TEXT_1588532281116\">Indeterminate - Absence of typical features and presence of: Multifocal,
+                diffuse, perihilar or unilateral GGO with or without consolidation lacking a specific distribution and
+                are non-rounded or non-peripheral. Few very small GGO with a non-rounded and non-peripheral
+                distribution</label>\n <input type=\"text\" id=\"TEXT_1588532281116\" name=\"\" data-field-type=\"TEXT\"
+                data-field-completion-action=\"NONE\" value=\"\" />\n </p>\n <p title=\"CO-RADS, not interpretable: scan
+            technically insufficient for assigning a score; CO-RADS 1 very low: normal or non-infections; CO-RADS 2 low:
+            typical for other infection but not COVID-19. CO-RADS 3 equivocal/unsure: features compatible with COVID-19,
+            but also other diseases. CO-RADS 4 high: suspicious for COVID-19. CO-RADS 5 very high: typical for COVID-19.
+            CO-RADS 6 proven: RT-PCR positive for SARS-CoV-2\">\n <label for=\"SELECTION_LIST_1588532281056\">Select
+                CO-RADS cathegory</label>\n <select multiple=\"multiple\" id=\"SELECTION_LIST_1588532281056\" name=\"\"
+                data-field-type=\"SELECTION_LIST\" data-field-completion-action=\"NONE\" value=\"CO-RADS 0\">\n <option
+                    id=\"SELECTION_LIST_1588532281056_0\" value=\"CO-RADS 0\" name=\"SELECTION_LIST_1588532281056\"
+                    selected=\"\">CO-RADS 0</option>\n <option id=\"SELECTION_LIST_1588532281056_1\" value=\"CO-RADS 1\"
+                    name=\"SELECTION_LIST_1588532281056\">CO-RADS 1</option>\n <option
+                    id=\"SELECTION_LIST_1588532281056_2\" value=\"CO-RADS 2\" name=\"SELECTION_LIST_1588532281056\">
+                    CO-RADS 2</option>\n <option id=\"SELECTION_LIST_1588532281056_3\" value=\"CO-RADS 3\"
+                    name=\"SELECTION_LIST_1588532281056\">CO-RADS 3</option>\n <option
+                    id=\"SELECTION_LIST_1588532281056_4\" value=\"CO-RADS 4\" name=\"SELECTION_LIST_1588532281056\">
+                    CO-RADS 4</option>\n <option id=\"SELECTION_LIST_1588532281056_5\" value=\"CO-RADS 5\"
+                    name=\"SELECTION_LIST_1588532281056\">CO-RADS 5</option>\n <option
+                    id=\"SELECTION_LIST_1588532281056_6\" value=\"CO-RADS 6\" name=\"SELECTION_LIST_1588532281056\">
+                    CO-RADS 6</option>\n </select>\n </p>\n <p title=\"\">\n <label for=\"impressionText\">CO-RADS, not
+                interpretable: scan technically insufficient for assigning a score; CO-RADS 1 very low: normal or
+                non-infections; CO-RADS 2 low: typical for other infection but not COVID-19. CO-RADS 3 equivocal/unsure:
+                features compatible with COVID-19, but also other diseases. CO-RADS 4 high: suspicious for COVID-19.
+                CO-RADS 5 very high: typical for COVID-19. CO-RADS 6 proven: RT-PCR positive for SARS-CoV-2</label>\n
+            <input type=\"text\" id=\"impressionText\" name=\"\" data-field-type=\"TEXT\"
+                data-field-completion-action=\"NONE\" value=\"\" />\n </p>\n <section
+            id=\"SECTION_HEADER_1588532281088\" class=\"level2\" data-section-name=\"NOTES\">\n <header
+                class=\"level2\">\n NOTES\n </header>\n <p title=\"\">\n <label for=\"TEXT_1588537800493\"></label>\n
+                <textarea rows=\"3\" cols=\"100\" id=\"TEXT_1588537800493\" name=\"\" data-field-type=\"TEXTAREA\"
+                    data-field-completion-action=\"NONE\"></textarea>\n </p>\n </section>\n </section>\n </body>\n
+
+</html>\n

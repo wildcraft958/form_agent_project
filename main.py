@@ -8,7 +8,7 @@ from src.JSON_converter import convert_json_to_html
 from src.llm_handler import LLMHandler
 from src.chat_history import ChatHistoryManager
 from src.form_processor import FormProcessor
-from api.radreport_api import RadReportConverter
+
 
 # Load environment variables
 load_dotenv()
