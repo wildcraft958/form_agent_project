@@ -89,7 +89,7 @@ def generate_context_for_chatbot():
     # Setup LangChain prompt + Ollama
     llm = OllamaLLM(model="llama3")
     template = PromptTemplate.from_template("""
-                                            Summarize this medical template metadata in 3-4 lines, making it easy to understand and human-friendly.
+                                            Summarize this medical template metadata in 4-5 lines, making it easy to understand and human-friendly.
                                             Highlight the clinical context, intended use, and any unique aspects:
 
                                             {meta}
