@@ -11,6 +11,13 @@ import whisper
 from rich.console import Console
 from src.audio_input import AudioRecorder
 from src.overlap_text import combine_overlapping_text
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+openai_api_key = os.getenv("OPENAI_API_KEY")
+elevenlabs_api_key = os.getenv("ELEVENLABS_API_KEY")
+
 
 
 class LiveSTT:

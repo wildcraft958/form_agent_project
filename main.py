@@ -96,24 +96,22 @@ def enhance_form_schema(form_json):
 def setup_speech_components(use_speech, tts_engine, whisper_model, language):
     tts_handler = None
     stt_handler = None
-    
     if use_speech:
         # Initialize TTS
         console.print(Panel("[bold]Initializing Text-to-Speech...[/bold]", border_style="blue"))
         tts_handler = RealtimeTTSHandler(engine_type=tts_engine)
         
-        # Initialize Whisper STT
+        # Initialize Whisper STT - FIXED PARAMETER NAME
         console.print(Panel("[bold]Initializing Whisper...[/bold]", border_style="blue"))
         try:
-            stt_handler = LiveSTT(model_size=whisper_model, language=language)
+            # Changed parameter name from model_size to whisper_model
+            stt_handler = LiveSTT(whisper_model=whisper_model)
             console.print(f"[green]Whisper {whisper_model} model loaded successfully[/green]")
         except Exception as e:
-            console.print(Panel(f"[red]STT initialization failed: {str(e)}[/red]", 
-                              title="Error", border_style="red"))
+            console.print(Panel(f"[red]STT initialization failed: {str(e)}[/red]",
+                        title="Error", border_style="red"))
             stt_handler = None
-    
     return tts_handler, stt_handler
-
 
 def process_form_with_speech(form_processor, tts_handler, stt_handler):
     """Process form using speech interface."""
