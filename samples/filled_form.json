@@ -128,7 +128,7 @@
         "selected": false
       }
     ],
-    "value": "Severe",
+    "value": "Normal",
     "required": false
   },
   "Mediastinum": {
@@ -165,7 +165,7 @@
         "selected": false
       }
     ],
-    "value": "Normal",
+    "value": "Calcification",
     "required": false
   },
   "Impression": {
@@ -217,7 +217,7 @@
         "selected": false
       }
     ],
-    "value": "Cardiomegaly",
+    "value": "Mild edema",
     "required": true
   }
 }

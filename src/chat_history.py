@@ -1,6 +1,10 @@
 import json
 import os
 from datetime import datetime
+from rich.console import Console
+from rich.panel import Panel
+
+console = Console()
 
 class ChatHistoryManager:
     def __init__(self, history_file="chat_history.json", max_history=10):
@@ -27,7 +31,7 @@ class ChatHistoryManager:
                 with open(self.history_file, 'r') as f:
                     return json.load(f)
             except Exception as e:
-                print(f"Error loading chat history: {e}")
+                console.print(Panel(f"[red]Error loading chat history: {e}[/red]", title="Chat History Error", border_style="red"))
                 return []
         return []
     
@@ -39,7 +43,7 @@ class ChatHistoryManager:
             with open(self.history_file, 'w') as f:
                 json.dump(self.history, f, indent=2)
         except Exception as e:
-            print(f"Error saving chat history: {e}")
+            console.print(Panel(f"[red]Error saving chat history: {e}[/red]", title="Chat History Error", border_style="red"))
     
     def add_to_history(self, role, content):
         """
@@ -82,12 +86,12 @@ class ChatHistoryManager:
         Returns:
             str: Formatted chat history
         """
-        formatted_history = "Previous conversation:\n"
+        formatted_history = "[bold]Previous conversation:[/bold]\n"
         
         for msg in self.history:
             role = msg["role"].capitalize()
             content = msg["content"]
-            formatted_history += f"{role}: {content}\n\n"
+            formatted_history += f"[cyan]{role}[/cyan]: {content}\n\n"
         
         return formatted_history
     
@@ -97,3 +101,4 @@ class ChatHistoryManager:
         """
         self.history = []
         self._save_history()
+        console.print(Panel("[yellow]Chat history cleared.[/yellow]", title="Chat History", border_style="yellow"))

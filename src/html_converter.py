@@ -1,4 +1,3 @@
-# src/html_converter.py
 from bs4 import BeautifulSoup
 
 def convert_html_to_json(html_content):

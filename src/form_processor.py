@@ -1,7 +1,9 @@
-# src/form_processor.py - Refactored
-
 import re
 import json
+from rich.console import Console
+from rich.panel import Panel
+
+console = Console()
 
 class FormProcessor:
     def __init__(self, llm_interface, form_context=None):
@@ -26,7 +28,7 @@ class FormProcessor:
     def process_form(self):
         """Process the form with interactive validation and user-friendly prompts."""
         if not self.form_data:
-            print("Warning: No form data found. Creating sample data for testing.")
+            console.print(Panel("[yellow]Warning: No form data found. Creating sample data for testing.[/yellow]", border_style="yellow"))
             self.form_data = {
                 "patient_name": {
                     "type": "text",
@@ -42,7 +44,7 @@ class FormProcessor:
         
         # Start conversation with form context if available
         if self.form_context:
-            print(f"Bot: {self.form_context}\n")
+            console.print(Panel(f"{self.form_context}", title="Form Context", border_style="cyan"))
             # Add to chat history
             self.chat_history.append({
                 'user': '',
@@ -65,16 +67,16 @@ class FormProcessor:
             while attempts < self.max_attempts and not valid:
                 # Display prompt to user (only on first attempt or if prompt changes)
                 if attempts == 0:
-                    print(f"Bot: {field_prompt}")
+                    console.print(Panel(field_prompt, title="Bot", border_style="blue"))
                 
                 # Get user input
-                user_input = input("User: ")
+                user_input = console.input("[bold magenta]User:[/bold magenta] ")
                 
                 # Check if user wants to skip optional field
                 is_required = field_data.get('required', False)
                 if not is_required and self._is_skip_request(user_input):
                     completed_form[field_name]['value'] = "Not specified"
-                    print(f"Bot: I've marked {self._format_field_name(field_name)} as 'Not specified'. Moving on.")
+                    console.print(Panel(f"I've marked {self._format_field_name(field_name)} as 'Not specified'. Moving on.", border_style="cyan"))
                     self.chat_history.append({
                         'user': user_input,
                         'assistant': f"I've marked {self._format_field_name(field_name)} as 'Not specified'. Moving on.",
@@ -106,7 +108,7 @@ class FormProcessor:
                     })
                     
                     # Confirm the input with the user
-                    print(f"Bot: I've recorded '{processed_value}' for {self._format_field_name(field_name)}. Thank you.")
+                    console.print(Panel(f"I've recorded '{processed_value}' for {self._format_field_name(field_name)}. Thank you.", border_style="green"))
                     valid = True
                 else:
                     # Increment attempt counter
@@ -114,7 +116,7 @@ class FormProcessor:
                     
                     # Show validation error with guidance for correction
                     guidance = self._generate_guidance(field_name, field_data, user_input, attempts)
-                    print(f"Bot: {validation_message} {guidance}")
+                    console.print(Panel(f"{validation_message} {guidance}", border_style="red"))
                     
                     # Add failed attempt to chat history
                     self.chat_history.append({
@@ -127,7 +129,7 @@ class FormProcessor:
             
             # If max attempts reached, accept the input but flag for review
             if not valid:
-                print(f"Bot: I'll accept your input and mark this for later review. Let's continue with the form.")
+                console.print(Panel("I'll accept your input and mark this for later review. Let's continue with the form.", border_style="yellow"))
                 completed_form[field_name]['value'] = raw_input
                 completed_form[field_name]['needs_review'] = True
                 completed_form[field_name]['review_reason'] = "Maximum validation attempts reached"
@@ -185,7 +187,7 @@ class FormProcessor:
             prompt += "If not applicable, you can type 'none' or leave it empty to skip this field."
         
         # Add options for select fields
-        if field_type == 'select':
+        if (field_type == 'select'):
             options = field_data.get('options', [])
             if options:
                 prompt += "\nPlease select one of the following options (enter the number or option name):"

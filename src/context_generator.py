@@ -1,5 +1,3 @@
-# src/context_generator.py
-
 import os
 import json
 from langchain_ollama import OllamaLLM

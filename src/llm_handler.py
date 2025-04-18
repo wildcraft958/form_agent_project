@@ -1,12 +1,13 @@
-# src/llm_handler.py
-
 import os
 import json
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from dotenv import load_dotenv
+from rich.console import Console
+from rich.panel import Panel
 
+console = Console()
 load_dotenv()
 
 def is_package_available(package_name):
@@ -35,6 +36,7 @@ class LLMHandler:
     def _initialize_ollama(self):
         """Initialize Ollama LLM with proper configuration."""
         if not is_package_available("langchain_ollama"):
+            console.print(Panel("[red]Install 'langchain-ollama': pip install langchain-ollama[/red]", title="Import Error", border_style="red"))
             raise ImportError("Install 'langchain-ollama': pip install langchain-ollama")
         
         from langchain_ollama import ChatOllama
@@ -49,6 +51,7 @@ class LLMHandler:
         """Initialize Hugging Face LLM with corrected implementation."""
         hf_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
         if not hf_token:
+            console.print(Panel("[red]HUGGINGFACEHUB_API_TOKEN required in .env[/red]", title="Token Error", border_style="red"))
             raise ValueError("HUGGINGFACEHUB_API_TOKEN required in .env")
         
         if is_package_available("langchain_huggingface"):
@@ -71,10 +74,9 @@ class LLMHandler:
                 model_kwargs={"temperature": 0.3, "max_length": 512}
             )
         
+        console.print(Panel("[red]Install 'langchain-huggingface' or 'langchain_community'[/red]", title="Import Error", border_style="red"))
         raise ImportError("Install 'langchain-huggingface' or 'langchain_community'")
     
-   # Modifications to src/llm_handler.py
-
     def validate_input(self, validation_prompt):
         """
         Validate user input using LLM reasoning with improved medical context.
@@ -149,7 +151,7 @@ class LLMHandler:
                         "processed_value": validation_prompt["user_input"]
                     }
         except Exception as e:
-            print(f"Error during validation: {e}")
+            console.print(Panel(f"[red]Error during validation: {e}[/red]", title="Validation Error", border_style="red"))
             # Return default response in case of errors - be lenient
             return {
                 "is_valid": True,
@@ -204,7 +206,7 @@ Output JSON:""",
             return self._safe_parse_response(form_data, response)
             
         except Exception as e:
-            print(f"Processing Error: {str(e)}")
+            console.print(Panel(f"[red]Processing Error: {str(e)}[/red]", title="Processing Error", border_style="red"))
             return self._get_empty_form(form_data)
     
     def create_system_prompt(self, form_data):
@@ -261,7 +263,7 @@ Output JSON:""",
     
     def _handle_invalid_response(self, original_form, response):
         """Fallback parsing for invalid responses."""
-        print("Attempting to recover from invalid response format...")
+        console.print(Panel("[yellow]Attempting to recover from invalid response format...[/yellow]", title="Recovery", border_style="yellow"))
         pairs = {}
         
         for line in response.split('\n'):

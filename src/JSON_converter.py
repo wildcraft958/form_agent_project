@@ -1,5 +1,3 @@
-# src/JSON_converter.py
-
 import json
 
 def convert_json_to_html(json_data):
