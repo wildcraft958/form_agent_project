@@ -1,0 +1,7 @@
+Here is a summary of the medical template metadata in 4 lines, making it easy to understand and human-friendly:
+
+**Clinical Context:** This template is for diagnosing Pulmonary Embolism (blood clots in the lungs) using CT scans.
+
+**Intended Use:** The German Radiological Society created this template as a reporting tool for radiologists to assess CT scans of patients suspected of having pulmonary embolism.
+
+**Unique Aspect:** This template is written in German, making it specific to the German-speaking medical community.
