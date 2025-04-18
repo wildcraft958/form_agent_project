@@ -1,67 +1,92 @@
 # src/JSON_converter.py
+
 import json
 
 def convert_json_to_html(json_data):
-    """Convert JSON form data to HTML."""
+    """Convert JSON form data to HTML with highlighting for review fields."""
     try:
         # Start building the HTML document
         html_lines = [
             "<!DOCTYPE html>",
-            "<html>",
+            "<html lang='en'>",
             "<head>",
-            "    <title>Filled Radiology Report Form</title>",
+            "    <meta charset='UTF-8'>",
+            "    <meta name='viewport' content='width=device-width, initial-scale=1.0'>",
+            "    <title>Completed Medical Form</title>",
             "    <style>",
-            "        body { font-family: Arial, sans-serif; margin: 20px; }",
-            "        .form-container { max-width: 800px; margin: 0 auto; }",
-            "        .form-field { margin-bottom: 15px; }",
-            "        .field-label { font-weight: bold; margin-bottom: 5px; }",
-            "        .field-value { padding: 5px; border: 1px solid #ddd; }",
-            "        textarea.field-value { width: 100%; min-height: 100px; }",
+            "        body { font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; }",
+            "        h1 { color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 10px; }",
+            "        h2 { color: #3498db; margin-top: 30px; }",
+            "        .field { margin-bottom: 20px; }",
+            "        .field-label { font-weight: bold; color: #555; }",
+            "        .field-value { margin-top: 5px; }",
+            "        .needs-review { background-color: #ffe6e6; padding: 10px; border-left: 3px solid #ff0000; }",
+            "        .review-reason { color: #dc3545; font-style: italic; }",
+            "        .review-summary { background-color: #f2f2f2; padding: 15px; margin-top: 30px; border-radius: 5px; }",
             "    </style>",
             "</head>",
             "<body>",
-            "    <div class='form-container'>",
-            "        <h1>Completed Radiology Report</h1>"
+            "    <h1>Completed Medical Form</h1>"
         ]
         
-        # Add form fields
+        # List to collect fields that need review
+        review_fields = []
+        
+        # Add each field from the JSON data
         for field_name, field_data in json_data.items():
-            # Skip hidden fields
-            if isinstance(field_data, dict) and field_data.get('hidden', False):
+            # Skip hidden fields and system fields (starting with '_')
+            if isinstance(field_data, dict) and (field_data.get('hidden', False) or field_name.startswith('_')):
                 continue
                 
-            # Format field name for display
-            display_name = field_data.get('label', " ".join(word.capitalize() for word in field_name.split('_')))
+            # Get field values
+            label = field_data.get('label', " ".join(word.capitalize() for word in field_name.split('_')))
+            value = field_data.get('value', '')
             
-            # Get field value
-            if isinstance(field_data, dict):
-                value = field_data.get('value', '')
-                field_type = field_data.get('type', 'text')
-            else:
-                value = str(field_data)
-                field_type = 'text'
-                
-            # Add field to HTML
-            html_lines.append(f"        <div class='form-field'>")
-            html_lines.append(f"            <div class='field-label'>{display_name}</div>")
+            # Check if field needs review
+            needs_review = field_data.get('needs_review', False)
+            review_class = "needs-review" if needs_review else ""
+            review_reason = field_data.get('review_reason', '')
             
-            # Format value based on field type
-            if field_type == 'textarea':
-                html_lines.append(f"            <textarea class='field-value' readonly>{value}</textarea>")
-            else:
-                html_lines.append(f"            <div class='field-value'>{value}</div>")
+            if needs_review:
+                review_fields.append((label, review_reason))
+            
+            # Add the field to the HTML
+            html_lines.extend([
+                f"    <div class='field {review_class}'>",
+                f"        <div class='field-label'>{label}:</div>",
+                f"        <div class='field-value'>{value}</div>"
+            ])
+            
+            # Add review reason if needed
+            if needs_review:
+                html_lines.append(f"        <div class='review-reason'>{review_reason}</div>")
                 
-            html_lines.append(f"        </div>")
+            html_lines.append("    </div>")
         
-        # Close HTML document
+        # Add a summary of fields needing review if any
+        if review_fields:
+            html_lines.extend([
+                "    <div class='review-summary'>",
+                "        <h2>Fields Needing Review</h2>",
+                "        <ul>"
+            ])
+            
+            for label, reason in review_fields:
+                html_lines.append(f"            <li><strong>{label}</strong>: {reason}</li>")
+                
+            html_lines.extend([
+                "        </ul>",
+                "    </div>"
+            ])
+        
+        # Close the HTML document
         html_lines.extend([
-            "    </div>",
             "</body>",
             "</html>"
         ])
         
-        return "\n".join(html_lines)
-        
+        return '\n'.join(html_lines)
+    
     except Exception as e:
         print(f"Error converting JSON to HTML: {e}")
         return None

@@ -1,686 +1,223 @@
 {
-  "NUMBER_1588531343842": {
-    "type": "number",
-    "value": "",
+  "Procedure": {
+    "type": "textarea",
+    "value": "PA and lateral views of the chest.",
     "placeholder": "",
-    "required": false,
-    "label": "Thickness"
+    "required": false
   },
-  "CHECKBOX_1588531343856": {
-    "type": "checkbox",
-    "value": "Suspect\n                    COVID-19",
-    "placeholder": "",
-    "required": false,
-    "label": "Anamnesis"
-  },
-  "TEXT_1588532281114": {
-    "type": "text",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Typical -\n                Peripheral, bilateral, GGO with or without consolidation or visible intralobular lines (crazy-paving).\n                Multifocal GGO of rounded morphology with or without consolidation or visible intralobular lines\n                (crazy-paving). Reverse halo sign or other findings of organizing pneumonia (seen later in the\n                disease)"
-  },
-  "TEXT_1588532281115": {
-    "type": "text",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Atypical - Absence of typical or indeterminate features and presence of:\n                Isolated lobar or segmental consolidation without GGO. Discrete small nodules (centrilobular, tree\n                in-bud). Lung cavitation. Smooth interlobular septal thickening with pleural effusion"
-  },
-  "TEXT_1588532281116": {
-    "type": "text",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "Indeterminate - Absence of typical features and presence of: Multifocal,\n                diffuse, perihilar or unilateral GGO with or without consolidation lacking a specific distribution and\n                are non-rounded or non-peripheral. Few very small GGO with a non-rounded and non-peripheral\n                distribution"
-  },
-  "impressionText": {
-    "type": "text",
-    "value": "",
-    "placeholder": "",
-    "required": false,
-    "label": "CO-RADS, not\n                interpretable: scan technically insufficient for assigning a score; CO-RADS 1 very low: normal or\n                non-infections; CO-RADS 2 low: typical for other infection but not COVID-19. CO-RADS 3 equivocal/unsure:\n                features compatible with COVID-19, but also other diseases. CO-RADS 4 high: suspicious for COVID-19.\n                CO-RADS 5 very high: typical for COVID-19. CO-RADS 6 proven: RT-PCR positive for SARS-CoV-2"
-  },
-  "TEXT_1588537800493": {
+  "Clinical information": {
     "type": "textarea",
     "value": "",
     "placeholder": "",
-    "required": false,
-    "label": ""
+    "required": false
   },
-  "SELECTION_LIST_1588531343843": {
+  "Comparison": {
+    "type": "textarea",
+    "value": "None.",
+    "placeholder": "",
+    "required": false
+  },
+  "Lungs": {
     "type": "select",
     "options": [
       {
-        "value": "Standard",
-        "text": "Standard",
-        "selected": true
+        "value": "Clear",
+        "text": "The lungs are clear.",
+        "selected": false
       },
       {
-        "value": "Iterative",
-        "text": "Iterative",
+        "value": "Low volume",
+        "text": "The inspiratory volumes are small, and this probably accounts for some vascular crowding and atelectasis at the bases.",
+        "selected": false
+      },
+      {
+        "value": "Right atelectasis",
+        "text": "There is focal opacity at the right lung base most likely representing right lower lobe atelectasis.",
+        "selected": false
+      },
+      {
+        "value": "Right atelectasis and effusion",
+        "text": "There is focal opacity at the right lung base most likely representing a combination of a moderate right pleural effusion and associated passive right lower lobe atelectasis.",
+        "selected": false
+      },
+      {
+        "value": "Left atelectasis",
+        "text": "There is a focal opacity at the left lung base most like representing left lower lobe atelectasis.",
+        "selected": false
+      },
+      {
+        "value": "Left atelectasis and effusion",
+        "text": "There is a focal opacity at the left lung base, characteristic of a combination of a moderate left pleural effusion and associated atelectasis.",
+        "selected": false
+      },
+      {
+        "value": "Bibasilar atelectasis",
+        "text": "There is patchy opacity at both lung bases characteristic of atelectasis.",
+        "selected": false
+      },
+      {
+        "value": "Bibasilar atelectasis and effusion",
+        "text": "There is patchy opacity at both lung bases characteristic of a combination of atelectasis and effusions.",
+        "selected": false
+      },
+      {
+        "value": "Mild Edema",
+        "text": "There is vascular congestion with increased interstitial markings findings indicating mild cardiogenic edema.",
+        "selected": false
+      },
+      {
+        "value": "Moderate edema",
+        "text": "There is vascular congestion with mixed interstitial and patchy alveolar opacities, findings indicating moderate cardiogenic edema.",
+        "selected": false
+      },
+      {
+        "value": "Severe edema",
+        "text": "There is extensive alveolar consolidation in the lungs bilaterally, most likely representing pulmonary edema. This is probably on the basis of severe congestive heart failure but could be a result of noncardiogenic causes.",
+        "selected": false
+      },
+      {
+        "value": "Multifocal pneumonia",
+        "text": "There are multiple patchy areas of consolidation, widely scattered about the lungs bilaterally. This most likely represents a multifocal pneumonia.",
+        "selected": false
+      },
+      {
+        "value": "Everything",
+        "text": "There is patchy opacity at both lung bases characteristic of a combination of atelectasis and effusions. There is mild vascular and interstitial prominence, likely reflecting mild pulmonary edema.",
+        "selected": false
+      },
+      {
+        "value": "Congestion",
+        "text": "There is mild pulmonary vascular engorgement without pulmonary edema.",
         "selected": false
       }
     ],
     "value": "",
-    "required": false,
-    "label": "Reconstruction algorithm"
+    "required": false
   },
-  "SELECTION_LIST_1588580525105": {
+  "Heart": {
     "type": "select",
     "options": [
       {
-        "value": "Standard",
-        "text": "Standard",
-        "selected": true
+        "value": "Normal",
+        "text": "The heart is normal in size.",
+        "selected": false
       },
       {
-        "value": "High-resolution",
-        "text": "High-resolution",
+        "value": "Mild",
+        "text": "There is mild cardiomegaly.",
+        "selected": false
+      },
+      {
+        "value": "Moderate",
+        "text": "There is moderate cardiomegaly.",
+        "selected": false
+      },
+      {
+        "value": "Severe",
+        "text": "There is severe cardiomegaly.",
+        "selected": false
+      },
+      {
+        "value": "Marked",
+        "text": "There is marked cardiomegaly.",
+        "selected": false
+      },
+      {
+        "value": "Top",
+        "text": "The heart is top normal in size.",
         "selected": false
       }
     ],
     "value": "",
-    "required": false,
-    "label": "Kernel"
+    "required": false
   },
-  "SELECTION_LIST_1588531343849": {
+  "Mediastinum": {
     "type": "select",
     "options": [
       {
-        "value": "Supine",
-        "text": "Supine",
-        "selected": true
-      },
-      {
-        "value": "Prone",
-        "text": "Prone",
+        "value": "Normal",
+        "text": "The mediastinum is within normal limits.",
         "selected": false
       },
       {
-        "value": "Supine and Prone",
-        "text": "Supine and Prone",
+        "value": "Calcification",
+        "text": "Atherosclerotic calcifications are seen in the aorta.",
+        "selected": false
+      },
+      {
+        "value": "Tortuous",
+        "text": "The aorta appears tortuous, a finding usually associated with either atherosclerosis or systemic hypertension.",
+        "selected": false
+      },
+      {
+        "value": "Aneurysm",
+        "text": "The aortic contour is quite prominent, a finding likely indicating either an aortic aneurysm or dissection.",
+        "selected": false
+      },
+      {
+        "value": "Post-op",
+        "text": "Post-operative changes are present in the mediastinum.",
+        "selected": false
+      },
+      {
+        "value": "DDD",
+        "text": "Degenerative changes are present in the thoracic spine.",
         "selected": false
       }
     ],
     "value": "",
-    "required": false,
-    "label": "Decubitus"
+    "required": false
   },
-  "SELECTION_LIST_1588672703477": {
+  "Impression": {
     "type": "select",
     "options": [
       {
-        "value": "yes",
-        "text": "yes",
-        "selected": true
+        "value": "NAD",
+        "text": "No active disease.",
+        "selected": false
       },
       {
-        "value": "no",
-        "text": "no",
+        "value": "Cardiomegaly",
+        "text": "Cardiomegaly.",
+        "selected": false
+      },
+      {
+        "value": "Mild edema",
+        "text": "Mild cardiogenic edema.",
+        "selected": false
+      },
+      {
+        "value": "Moderate edema",
+        "text": "Moderate cardiogenic edema.",
+        "selected": false
+      },
+      {
+        "value": "Severe edema",
+        "text": "Severe edema, probably cardiogenic.",
+        "selected": false
+      },
+      {
+        "value": "Atelectasis",
+        "text": "Atelectasis.",
+        "selected": false
+      },
+      {
+        "value": "Post-op",
+        "text": "Satisfactory post-operative status.",
+        "selected": false
+      },
+      {
+        "value": "Congestion",
+        "text": "Pulmonary vascular congestion.",
+        "selected": false
+      },
+      {
+        "value": "Low volume",
+        "text": "Low inspiratory volumes.",
         "selected": false
       }
     ],
     "value": "",
-    "required": false,
-    "label": "Contrast media"
-  },
-  "SELECTION_LIST_1588532281044": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Mild: No evidence of significant\n                    pulmonary dysfunction or damage",
-        "text": "Mild: No\n                    evidence of significant pulmonary dysfunction or damage",
-        "selected": true
-      },
-      {
-        "value": "Moderate-to-severe: Evidence of significant pulmonary\n                    dysfunction or damage",
-        "text": "Moderate-to-severe: Evidence of\n                    significant pulmonary dysfunction or damage",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Severity of symptoms"
-  },
-  "SELECTION_LIST_1588532281031": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Low: Sporadic transmission",
-        "text": "Low: Sporadic transmission",
-        "selected": true
-      },
-      {
-        "value": "Medium: Clustered transmission",
-        "text": "Medium: Clustered transmission",
-        "selected": false
-      },
-      {
-        "value": "High: Community transmission",
-        "text": "High: Community transmission",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Pre-test probability of COVID"
-  },
-  "SELECTION_LIST_1588532281078": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Chest X-ray",
-        "text": "Chest X-ray",
-        "selected": true
-      },
-      {
-        "value": "CT",
-        "text": "CT",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Previous exams"
-  },
-  "SELECTION_LIST_1588532280986": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Right unilateral",
-        "text": "Right unilateral",
-        "selected": true
-      },
-      {
-        "value": "Left unilateral",
-        "text": "Left unilateral",
-        "selected": false
-      },
-      {
-        "value": "Bilateral",
-        "text": "Bilateral",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Location"
-  },
-  "SELECTION_LIST_1588532281117": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Diffuse",
-        "text": "Diffuse",
-        "selected": true
-      },
-      {
-        "value": "Predominantly peripheral",
-        "text": "Predominantly peripheral",
-        "selected": false
-      },
-      {
-        "value": "Predominantly central",
-        "text": "Predominantly central",
-        "selected": false
-      },
-      {
-        "value": "Dependent on decubitus",
-        "text": "Dependent on decubitus",
-        "selected": false
-      },
-      {
-        "value": "Non-dependent on decubitus",
-        "text": "Non-dependent on decubitus",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Distribution in the axial plane"
-  },
-  "SELECTION_LIST_1588532280993": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Diffuse",
-        "text": "Diffuse",
-        "selected": true
-      },
-      {
-        "value": "Multifocal / patching",
-        "text": "Multifocal / patching",
-        "selected": false
-      },
-      {
-        "value": "Predominant in the upper lobes",
-        "text": "Predominant in the upper lobes",
-        "selected": false
-      },
-      {
-        "value": "Predominant in the lower lobes",
-        "text": "Predominant in the lower lobes",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Cranio-caudal distribution"
-  },
-  "SELECTION_LIST_1588537800382": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Right unilateral",
-        "text": "Right unilateral",
-        "selected": true
-      },
-      {
-        "value": "Left unilateral",
-        "text": "Left unilateral",
-        "selected": false
-      },
-      {
-        "value": "Bilateral",
-        "text": "Bilateral",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Location"
-  },
-  "SELECTION_LIST_1588537800383": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Diffuse",
-        "text": "Diffuse",
-        "selected": true
-      },
-      {
-        "value": "Predominantly peripheral",
-        "text": "Predominantly peripheral",
-        "selected": false
-      },
-      {
-        "value": "Predominantly central",
-        "text": "Predominantly central",
-        "selected": false
-      },
-      {
-        "value": "Dependent on decubitus",
-        "text": "Dependent on decubitus",
-        "selected": false
-      },
-      {
-        "value": "Non-dependent on decubitus",
-        "text": "Non-dependent on decubitus",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Distribution in the axial plane"
-  },
-  "SELECTION_LIST_1588537800384": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Diffuse",
-        "text": "Diffuse",
-        "selected": true
-      },
-      {
-        "value": "Multifocal / patching",
-        "text": "Multifocal / patching",
-        "selected": false
-      },
-      {
-        "value": "Predominant in the upper lobes",
-        "text": "Predominant in the upper lobes",
-        "selected": false
-      },
-      {
-        "value": "Predominant in the lower lobes",
-        "text": "Predominant in the lower lobes",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Cranio-caudal distribution"
-  },
-  "SELECTION_LIST_1588537800488": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Solid",
-        "text": "Solid",
-        "selected": true
-      },
-      {
-        "value": "Subsolid",
-        "text": "Subsolid",
-        "selected": false
-      },
-      {
-        "value": "Cavitated",
-        "text": "Cavitated",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Features"
-  },
-  "SELECTION_LIST_1588537800385": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Septal thickness",
-        "text": "Septal thickness",
-        "selected": true
-      },
-      {
-        "value": "Crazy paving",
-        "text": "Crazy paving",
-        "selected": false
-      },
-      {
-        "value": "Subpleural sparing",
-        "text": "Subpleural sparing",
-        "selected": false
-      },
-      {
-        "value": "Fibrotic distortion",
-        "text": "Fibrotic distortion",
-        "selected": false
-      },
-      {
-        "value": "Reversed halo sign",
-        "text": "Reversed halo sign",
-        "selected": false
-      },
-      {
-        "value": "Pulmonary emphysema",
-        "text": "Pulmonary emphysema",
-        "selected": false
-      },
-      {
-        "value": "Perilobular sign",
-        "text": "Perilobular sign",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Parenchyma: other findings"
-  },
-  "SELECTION_LIST_1588580525035": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Unilateral",
-        "text": "Unilateral",
-        "selected": true
-      },
-      {
-        "value": "Bilateral",
-        "text": "Bilateral",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Pleural effusion"
-  },
-  "SELECTION_LIST_1588580525071": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Nodules (3mm < diameter <=30mm)",
-        "text": "Nodules (3mm < diameter <=30mm)",
-        "selected": true
-      },
-      {
-        "value": "Micronodules (diameter <=3mm)",
-        "text": "Micronodules (diameter <= 3mm)",
-        "selected": false
-      },
-      {
-        "value": "Solid",
-        "text": "Solid",
-        "selected": false
-      },
-      {
-        "value": "Subsolid",
-        "text": "Subsolid",
-        "selected": false
-      },
-      {
-        "value": "Cavitated",
-        "text": "Cavitated",
-        "selected": false
-      },
-      {
-        "value": "Tree-in-bud",
-        "text": "Tree-in-bud",
-        "selected": false
-      },
-      {
-        "value": "Centrilobular",
-        "text": "Centrilobular",
-        "selected": false
-      },
-      {
-        "value": "Perilymphatic",
-        "text": "Perilymphatic",
-        "selected": false
-      },
-      {
-        "value": "Random",
-        "text": "Random",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Characteristics"
-  },
-  "SELECTION_LIST_1588537800396": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Right ilar",
-        "text": "Right ilar",
-        "selected": true
-      },
-      {
-        "value": "Left\n                        hilar",
-        "text": "Left hilar",
-        "selected": false
-      },
-      {
-        "value": "Subcarinal",
-        "text": "Subcarinal",
-        "selected": false
-      },
-      {
-        "value": "Antero-superior mediastinum",
-        "text": "Antero-superior mediastinum",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Lymphnodes"
-  },
-  "SELECTION_LIST_1588580525025": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Evident",
-        "text": "Evident",
-        "selected": true
-      },
-      {
-        "value": "Not\n                        evident",
-        "text": "Not evident",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Pericardial effusion"
-  },
-  "SELECTION_LIST_1588537800405": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Normal (< 29 mm)",
-        "text": "Normal (< 29 mm)",
-        "selected": true
-      },
-      {
-        "value": "Increased (>=29 mm)",
-        "text": "Increased (>= 29 mm)",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Pulmonary Artery Trunk Diameter"
-  },
-  "SELECTION_LIST_1588672703483": {
-    "type": "select",
-    "options": [
-      {
-        "value": "peripheral",
-        "text": "peripheral",
-        "selected": false
-      },
-      {
-        "value": "proximal",
-        "text": "proximal",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Pulmonary embolism"
-  },
-  "SELECTION_LIST_1588672703487": {
-    "type": "select",
-    "options": [
-      {
-        "value": "yes",
-        "text": "yes",
-        "selected": true
-      },
-      {
-        "value": "not",
-        "text": "not",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Vascular changes in parenchyma"
-  },
-  "SELECTION_LIST_1588537800415": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Pneumothorax",
-        "text": "Pneumothorax",
-        "selected": true
-      },
-      {
-        "value": "Pneumomediastinum",
-        "text": "Pneumomediastinum",
-        "selected": false
-      },
-      {
-        "value": "Subcutaneous emphysema",
-        "text": "Subcutaneous emphysema",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "SIGNS"
-  },
-  "SELECTION_LIST_1588532281081": {
-    "type": "select",
-    "options": [
-      {
-        "value": "Typical",
-        "text": "Typical",
-        "selected": true
-      },
-      {
-        "value": "Indeterminate",
-        "text": "Indeterminate",
-        "selected": false
-      },
-      {
-        "value": "Atypical",
-        "text": "Atypical",
-        "selected": false
-      },
-      {
-        "value": "Negative",
-        "text": "Negative",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Classification"
-  },
-  "SELECTION_LIST_1588532281056": {
-    "type": "select",
-    "options": [
-      {
-        "value": "CO-RADS 0",
-        "text": "CO-RADS 0",
-        "selected": true
-      },
-      {
-        "value": "CO-RADS 1",
-        "text": "CO-RADS 1",
-        "selected": false
-      },
-      {
-        "value": "CO-RADS 2",
-        "text": "CO-RADS 2",
-        "selected": false
-      },
-      {
-        "value": "CO-RADS 3",
-        "text": "CO-RADS 3",
-        "selected": false
-      },
-      {
-        "value": "CO-RADS 4",
-        "text": "CO-RADS 4",
-        "selected": false
-      },
-      {
-        "value": "CO-RADS 5",
-        "text": "CO-RADS 5",
-        "selected": false
-      },
-      {
-        "value": "CO-RADS 6",
-        "text": "CO-RADS 6",
-        "selected": false
-      }
-    ],
-    "value": "",
-    "required": false,
-    "label": "Select\n                CO-RADS cathegory"
+    "required": true
   }
 }

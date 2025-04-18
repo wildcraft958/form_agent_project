@@ -1,9 +1,6 @@
-Here's a summary of the medical template metadata in 4-5 lines:
+Here is the medical metadata summary in the required structure:
 
-This is a CT pulmonary embolism (blood clot in the lungs) diagnosis template created by the German Radiological Society. The template is intended for computed tomography (CT) imaging and is written in German. It has been viewed and downloaded over 7,000 times since its publication in June 2020.
-
-Unique aspects:
-
-* Clinical context: Lungenembolie (pulmonary embolism) diagnosis
-* Intended use: Computed Tomography (CT) imaging
-* Language: German
+1. Clinical Application: Computed Tomography
+2. Primary Function: Assists diagnosis
+3. Distinctive Attributes: Structured findings documentation, Clot localization markers
+4. Compliance/Users: German radiology compliance integration, Designed for radiologists and imaging specialists

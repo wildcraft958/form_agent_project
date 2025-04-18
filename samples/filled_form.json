@@ -1,51 +1,223 @@
 {
-  "\\\"\\\"": {
+  "Procedure": {
+    "type": "textarea",
+    "value": "jfafouhewqoufhewqojfgwq'[9fh",
+    "placeholder": "",
+    "required": false
+  },
+  "Clinical information": {
+    "type": "textarea",
+    "value": "pewqf",
+    "placeholder": "",
+    "required": false
+  },
+  "Comparison": {
+    "type": "textarea",
+    "value": "bdjagiudagd",
+    "placeholder": "",
+    "required": false
+  },
+  "Lungs": {
     "type": "select",
     "options": [
       {
-        "value": "\\\"CO-RADS",
-        "text": "CO-RADS 0",
-        "selected": true
-      },
-      {
-        "value": "\\\"CO-RADS",
-        "text": "CO-RADS 1",
+        "value": "Clear",
+        "text": "The lungs are clear.",
         "selected": false
       },
       {
-        "value": "\\\"CO-RADS",
-        "text": "CO-RADS 2",
+        "value": "Low volume",
+        "text": "The inspiratory volumes are small, and this probably accounts for some vascular crowding and atelectasis at the bases.",
         "selected": false
       },
       {
-        "value": "\\\"CO-RADS",
-        "text": "CO-RADS 3",
+        "value": "Right atelectasis",
+        "text": "There is focal opacity at the right lung base most likely representing right lower lobe atelectasis.",
         "selected": false
       },
       {
-        "value": "\\\"CO-RADS",
-        "text": "CO-RADS 4",
+        "value": "Right atelectasis and effusion",
+        "text": "There is focal opacity at the right lung base most likely representing a combination of a moderate right pleural effusion and associated passive right lower lobe atelectasis.",
         "selected": false
       },
       {
-        "value": "\\\"CO-RADS",
-        "text": "CO-RADS 5",
+        "value": "Left atelectasis",
+        "text": "There is a focal opacity at the left lung base most like representing left lower lobe atelectasis.",
         "selected": false
       },
       {
-        "value": "\\\"CO-RADS",
-        "text": "CO-RADS 6",
+        "value": "Left atelectasis and effusion",
+        "text": "There is a focal opacity at the left lung base, characteristic of a combination of a moderate left pleural effusion and associated atelectasis.",
+        "selected": false
+      },
+      {
+        "value": "Bibasilar atelectasis",
+        "text": "There is patchy opacity at both lung bases characteristic of atelectasis.",
+        "selected": false
+      },
+      {
+        "value": "Bibasilar atelectasis and effusion",
+        "text": "There is patchy opacity at both lung bases characteristic of a combination of atelectasis and effusions.",
+        "selected": false
+      },
+      {
+        "value": "Mild Edema",
+        "text": "There is vascular congestion with increased interstitial markings findings indicating mild cardiogenic edema.",
+        "selected": false
+      },
+      {
+        "value": "Moderate edema",
+        "text": "There is vascular congestion with mixed interstitial and patchy alveolar opacities, findings indicating moderate cardiogenic edema.",
+        "selected": false
+      },
+      {
+        "value": "Severe edema",
+        "text": "There is extensive alveolar consolidation in the lungs bilaterally, most likely representing pulmonary edema. This is probably on the basis of severe congestive heart failure but could be a result of noncardiogenic causes.",
+        "selected": false
+      },
+      {
+        "value": "Multifocal pneumonia",
+        "text": "There are multiple patchy areas of consolidation, widely scattered about the lungs bilaterally. This most likely represents a multifocal pneumonia.",
+        "selected": false
+      },
+      {
+        "value": "Everything",
+        "text": "There is patchy opacity at both lung bases characteristic of a combination of atelectasis and effusions. There is mild vascular and interstitial prominence, likely reflecting mild pulmonary edema.",
+        "selected": false
+      },
+      {
+        "value": "Congestion",
+        "text": "There is mild pulmonary vascular engorgement without pulmonary edema.",
         "selected": false
       }
     ],
-    "value": "\\\"CO-RADS",
+    "value": "Clear",
     "required": false
   },
-  "\\\"CHECKBOX_1588531343856\\\"": {
-    "type": "\\\"checkbox\\\"",
-    "value": "[NEEDS REVIEW]",
-    "placeholder": "",
-    "required": false,
-    "label": "Anamnesis"
+  "Heart": {
+    "type": "select",
+    "options": [
+      {
+        "value": "Normal",
+        "text": "The heart is normal in size.",
+        "selected": false
+      },
+      {
+        "value": "Mild",
+        "text": "There is mild cardiomegaly.",
+        "selected": false
+      },
+      {
+        "value": "Moderate",
+        "text": "There is moderate cardiomegaly.",
+        "selected": false
+      },
+      {
+        "value": "Severe",
+        "text": "There is severe cardiomegaly.",
+        "selected": false
+      },
+      {
+        "value": "Marked",
+        "text": "There is marked cardiomegaly.",
+        "selected": false
+      },
+      {
+        "value": "Top",
+        "text": "The heart is top normal in size.",
+        "selected": false
+      }
+    ],
+    "value": "Mild",
+    "required": false
+  },
+  "Mediastinum": {
+    "type": "select",
+    "options": [
+      {
+        "value": "Normal",
+        "text": "The mediastinum is within normal limits.",
+        "selected": false
+      },
+      {
+        "value": "Calcification",
+        "text": "Atherosclerotic calcifications are seen in the aorta.",
+        "selected": false
+      },
+      {
+        "value": "Tortuous",
+        "text": "The aorta appears tortuous, a finding usually associated with either atherosclerosis or systemic hypertension.",
+        "selected": false
+      },
+      {
+        "value": "Aneurysm",
+        "text": "The aortic contour is quite prominent, a finding likely indicating either an aortic aneurysm or dissection.",
+        "selected": false
+      },
+      {
+        "value": "Post-op",
+        "text": "Post-operative changes are present in the mediastinum.",
+        "selected": false
+      },
+      {
+        "value": "DDD",
+        "text": "Degenerative changes are present in the thoracic spine.",
+        "selected": false
+      }
+    ],
+    "value": "Post-op",
+    "required": false
+  },
+  "Impression": {
+    "type": "select",
+    "options": [
+      {
+        "value": "NAD",
+        "text": "No active disease.",
+        "selected": false
+      },
+      {
+        "value": "Cardiomegaly",
+        "text": "Cardiomegaly.",
+        "selected": false
+      },
+      {
+        "value": "Mild edema",
+        "text": "Mild cardiogenic edema.",
+        "selected": false
+      },
+      {
+        "value": "Moderate edema",
+        "text": "Moderate cardiogenic edema.",
+        "selected": false
+      },
+      {
+        "value": "Severe edema",
+        "text": "Severe edema, probably cardiogenic.",
+        "selected": false
+      },
+      {
+        "value": "Atelectasis",
+        "text": "Atelectasis.",
+        "selected": false
+      },
+      {
+        "value": "Post-op",
+        "text": "Satisfactory post-operative status.",
+        "selected": false
+      },
+      {
+        "value": "Congestion",
+        "text": "Pulmonary vascular congestion.",
+        "selected": false
+      },
+      {
+        "value": "Low volume",
+        "text": "Low inspiratory volumes.",
+        "selected": false
+      }
+    ],
+    "value": "nsakjfdoiahsd",
+    "required": false
   }
 }
