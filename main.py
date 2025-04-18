@@ -120,7 +120,7 @@ def main():
         
         # Step 2: Use local HTML form
         print("\n=== Using Local HTML Form ===")
-        sample_form_path = os.path.join(paths["samples"], "medical_form.html")
+        sample_form_path = os.path.join(paths["samples"], "medical_form_standard.html")
         
         # Read HTML form
         print("\n=== Reading HTML Form ===")
