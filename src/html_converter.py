@@ -1,4 +1,8 @@
 from bs4 import BeautifulSoup
+from rich.console import Console
+from rich.panel import Panel
+
+console = Console()
 
 def convert_html_to_json(html_content):
     """Convert HTML form content to JSON format."""
@@ -107,5 +111,5 @@ def convert_html_to_json(html_content):
         return form_data
         
     except Exception as e:
-        print(f"Error converting HTML to JSON: {e}")
+        console.print(Panel(f"[red]Error converting HTML to JSON: {e}[/red]", title="Conversion Error", border_style="red"))
         return None
