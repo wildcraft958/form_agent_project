@@ -1,30 +1,23 @@
 import pyaudio
 
-
 class AudioRecorder:
-
     def __init__(self):
         self.p = pyaudio.PyAudio()
-        p = self.p
+        # Auto-detect input device
+        input_device_index = None
+        for i in range(self.p.get_device_count()):
+            dev_info = self.p.get_device_info_by_index(i)
+            if dev_info['maxInputChannels'] > 0:
+                input_device_index = i
+                break
+        
+        if input_device_index is None:
+            raise Exception("No audio input devices found")
 
-        self.frequency = 44100
-
-        self.chunk = 1024
-
-        self.stream = p.open(format=pyaudio.paInt16,
-                        channels=1,
-                        rate=self.frequency,
-                        input=True, input_device_index=1)
-
-        print(self.p.get_device_info_by_index(1))
-
-    def record(self):
-        stream = self.stream
-        data = stream.read(self.chunk)
-
-        return data
-
-    def close(self):
-        self.stream.stop_stream()
-        self.stream.close()
-        self.p.terminate()
+        self.stream = self.p.open(
+            format=pyaudio.paInt16,
+            channels=1,
+            rate=44100,
+            input=True,
+            input_device_index=input_device_index
+        )
