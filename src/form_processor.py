@@ -199,32 +199,30 @@ class FormProcessor:
         return prompt, last_exchanges
     
     def _get_field_examples(self, field_name, field_type):
-        """Provide contextually appropriate examples based on field name and type."""
-        field_name_lower = field_name.lower()
-        
-        # Examples based on field name
-        if 'procedure' in field_name_lower:
-            return "MRI Brain without contrast, CT Abdomen with contrast, X-ray Chest PA and Lateral"
-        elif 'clinical' in field_name_lower and 'information' in field_name_lower:
-            return "Headache for 3 days, Rule out stroke, Follow-up for lung nodule"
-        elif 'impression' in field_name_lower or 'diagnosis' in field_name_lower:
-            return "No acute intracranial abnormality, Small right pleural effusion, Mild degenerative changes"
-        elif 'finding' in field_name_lower:
-            return "Normal brain parenchyma, No evidence of fracture, Mild cardiomegaly"
-        elif 'comparison' in field_name_lower:
-            return "Prior study from 01/15/2025 shows similar findings, New lesion compared to previous exam"
-        elif 'name' in field_name_lower:
-            return "John Smith, Jane Doe"
-        
-        # Examples based on field type
-        elif field_type == 'date':
-            return "04/18/2025, 12/25/2024"
-        elif field_type == 'number':
-            return "42, 7.5, 120"
-        elif field_type == 'email':
-            return "doctor@hospital.com, patient@email.com"
-        
-        # Default
+        """Provide contextually appropriate examples, using form context and LLM if available."""
+        # Try to generate examples using LLM if available
+        if self.form_context and hasattr(self.llm_interface, "generate_examples"):
+            try:
+                llm_examples = self.llm_interface.generate_examples(
+                    field_name=field_name,
+                    field_type=field_type,
+                    form_context=self.form_context
+                )
+                if llm_examples:
+                    # If LLM returns a string, split by commas
+                    if isinstance(llm_examples, str):
+                        examples = [e.strip() for e in llm_examples.split(",") if e.strip()]
+                        if examples:
+                            return ", ".join(examples)
+                    # If LLM returns a list, join as string
+                    elif isinstance(llm_examples, list):
+                        return ", ".join(str(e) for e in llm_examples)
+                    # Otherwise, fallback
+                    return str(llm_examples)
+            except Exception as e:
+                console.print(Panel(f"[yellow]LLM failed to generate examples for '{field_name}': {e}[/yellow]", title="LLM Example Warning", border_style="yellow"))
+                # Fallback to default value if LLM fails
+                
         return "Appropriate text for this field"
     
     def _format_field_name(self, field_name):

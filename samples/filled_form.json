@@ -91,7 +91,7 @@
         "selected": false
       }
     ],
-    "value": "Low volume",
+    "value": "Not specified",
     "required": false
   },
   "Heart": {
@@ -128,7 +128,7 @@
         "selected": false
       }
     ],
-    "value": "Normal",
+    "value": "Not specified",
     "required": false
   },
   "Mediastinum": {
@@ -165,7 +165,7 @@
         "selected": false
       }
     ],
-    "value": "Calcification",
+    "value": "Not specified",
     "required": false
   },
   "Impression": {
@@ -217,7 +217,15 @@
         "selected": false
       }
     ],
-    "value": "Mild edema",
-    "required": true
+    "value": "",
+    "required": true,
+    "needs_review": true,
+    "review_reason": "Maximum validation attempts reached"
+  },
+  "_review_status": {
+    "fields_needing_review": [
+      "Impression"
+    ],
+    "hidden": true
   }
 }

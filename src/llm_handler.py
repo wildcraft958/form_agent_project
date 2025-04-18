@@ -284,3 +284,31 @@ Output JSON:""",
                 empty_form[field] = {"value": "", "original": info}
                 
         return empty_form
+
+    def generate_examples(self, field_name, field_type, form_context=None):
+        """
+        Generate example values for a given field using the LLM.
+        """
+        prompt = (
+            f"You are helping to fill out a medical form.\n"
+            f"Field: {field_name} (type: {field_type})\n"
+        )
+        if form_context:
+            prompt += f"Form context: {form_context}\n"
+        prompt += (
+            "Give 3 realistic example values for this field, separated by commas. "
+            "Be concise and use appropriate medical terminology."
+        )
+
+        try:
+            # Use your LLM to generate examples
+            response = self.llm.invoke(prompt)
+            # Try to extract examples from the response
+            if isinstance(response, str):
+                # Split by commas and strip whitespace
+                examples = [ex.strip() for ex in response.split(",") if ex.strip()]
+                return examples
+            return []
+        except Exception as e:
+            console.print(Panel(f"[red]Error generating examples for {field_name}: {e}[/red]", title="LLM Example Error", border_style="red"))
+            return []
