@@ -5,6 +5,10 @@ from rich.panel import Panel
 from rich.prompt import Prompt
 
 from database.manager import load_templates_data
+import os
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(base_dir, "database", "templates.json")
 from interface.cli import parameter_navigation_menu, handle_direct_id_search
 
 # Set up logging
@@ -23,7 +27,7 @@ def main():
     logger.info("Starting RadReport Navigator CLI")
     
     with console.status("Loading templates data..."):
-        templates_data = load_templates_data()
+        templates_data = load_templates_data(file_path)
     
     if not templates_data:
         logger.error("Failed to load templates data. Exiting.")
