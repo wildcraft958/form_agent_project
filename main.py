@@ -8,9 +8,7 @@ from src.JSON_converter import convert_json_to_html
 from src.llm_handler import LLMHandler
 from src.chat_history import ChatHistoryManager
 from src.form_processor import FormProcessor
-from src.radreport_api import RadReportAPI
-from src.template_navigator import TemplateNavigator
-from src.radreport_converter import RadReportConverter
+from api.radreport_api import RadReportConverter
 
 # Load environment variables
 load_dotenv()
@@ -120,52 +118,26 @@ def main():
         print("I'll guide you through each field with explanations.")
         print("Let's get started!\n")
         
-        # Step 2: Initialize API and navigator
-        rad_report_api = RadReportAPI()
-        template_navigator = TemplateNavigator(rad_report_api)
-        template_converter = RadReportConverter()
+        # Step 2: Use local HTML form
+        print("\n=== Using Local HTML Form ===")
+        sample_form_path = os.path.join(paths["samples"], "medical_form.html")
         
-        # Step 3: Ask user for form source choice
-        print("\n=== Select Form Source ===")
-        print("1. Use a RadReport template")
-        print("2. Use a local HTML form")
+        # Read HTML form
+        print("\n=== Reading HTML Form ===")
+        html_content = read_html_file(sample_form_path)
+        if not html_content:
+            return
         
-        source_choice = input("Enter your choice (1 or 2): ")
+        # Convert HTML to JSON
+        print("\n=== Converting HTML to JSON ===")
+        form_json = convert_html_to_json(html_content)
+        if not form_json:
+            print("Conversion failed: Empty JSON output")
+            return
         
-        form_json = None
-        
-        if source_choice == "1":
-            # Step 3a: Navigate RadReport templates
-            print("\n=== Navigating RadReport Templates ===")
-            template_data = template_navigator.navigate_templates()
-            
-            # Convert template to form JSON
-            print("\n=== Converting Template to Form ===")
-            form_json = template_converter.convert_template_to_form(template_data)
-            
-            # Save the template form JSON
-            save_json_to_file(form_json, json_output_path)
-        else:
-            # Step 3b: Use local HTML form
-            print("\n=== Using Local HTML Form ===")
-            sample_form_path = os.path.join(paths["samples"], "medical_form.html")
-            
-            # Read HTML form
-            print("\n=== Reading HTML Form ===")
-            html_content = read_html_file(sample_form_path)
-            if not html_content:
-                return
-            
-            # Convert HTML to JSON
-            print("\n=== Converting HTML to JSON ===")
-            form_json = convert_html_to_json(html_content)
-            if not form_json:
-                print("Conversion failed: Empty JSON output")
-                return
-            
-            # Enhance form with metadata
-            form_json = enhance_form_schema(form_json)
-            save_json_to_file(form_json, json_output_path)
+        # Enhance form with metadata
+        form_json = enhance_form_schema(form_json)
+        save_json_to_file(form_json, json_output_path)
         
         # Step 4: Initialize components
         print("\n=== Initializing Components ===")
