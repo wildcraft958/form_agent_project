@@ -1,12 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset='UTF-8'>
-  <title>Form</title>
+    <title>Filled Radiology Report Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-container { max-width: 800px; margin: 0 auto; }
+        .form-field { margin-bottom: 15px; }
+        .field-label { font-weight: bold; margin-bottom: 5px; }
+        .field-value { padding: 5px; border: 1px solid #ddd; }
+        textarea.field-value { width: 100%; min-height: 100px; }
+    </style>
 </head>
 <body>
-  <form>
-    <input type='submit' value='Submit'>
-  </form>
+    <div class='form-container'>
+        <h1>Completed Radiology Report</h1>
+        <div class='form-field'>
+            <div class='field-label'>Patient Name:</div>
+            <div class='field-value'>mahes</div>
+        </div>
+        <div class='form-field'>
+            <div class='field-label'>Date of Birth:</div>
+            <div class='field-value'>2023-01-20</div>
+        </div>
+        <div class='form-field'>
+            <div class='field-label'>Patient ID:</div>
+            <div class='field-value'>2e1jd</div>
+        </div>
+        <div class='form-field'>
+            <div class='field-label'>Medication:</div>
+            <div class='field-value'>d21d</div>
+        </div>
+        <div class='form-field'>
+            <div class='field-label'>Dosage:</div>
+            <div class='field-value'>1d1</div>
+        </div>
+        <div class='form-field'>
+            <div class='field-label'>Duration (days):</div>
+            <div class='field-value'>2</div>
+        </div>
+        <div class='form-field'>
+            <div class='field-label'>Doctor Name:</div>
+            <div class='field-value'>[NEEDS REVIEW]</div>
+        </div>
+        <div class='form-field'>
+            <div class='field-label'>Doctor Signature:</div>
+            <div class='field-value'>[NEEDS REVIEW]</div>
+        </div>
+        <div class='form-field'>
+            <div class='field-label'>Prescription Date:</div>
+            <div class='field-value'>[NEEDS REVIEW]</div>
+        </div>
+        <div class='form-field'>
+            <div class='field-label'>Diagnosis:</div>
+            <textarea class='field-value' readonly>[NEEDS REVIEW]</textarea>
+        </div>
+        <div class='form-field'>
+            <div class='field-label'>Special Instructions:</div>
+            <textarea class='field-value' readonly>[NEEDS REVIEW]</textarea>
+        </div>
+        <div class='form-field'>
+            <div class='field-label'>Frequency:</div>
+            <div class='field-value'>once_daily</div>
+        </div>
+    </div>
 </body>
 </html>

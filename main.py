@@ -1,3 +1,4 @@
+# main.py (modified)
 import os
 import json
 import re
@@ -7,20 +8,24 @@ from src.JSON_converter import convert_json_to_html
 from src.llm_handler import LLMHandler
 from src.chat_history import ChatHistoryManager
 from src.form_processor import FormProcessor
-from src.radreport_api import get_templates, get_template_details
-
+from src.radreport_api import RadReportAPI
+from src.template_navigator import TemplateNavigator
+from src.radreport_converter import RadReportConverter
 
 # Load environment variables
 load_dotenv()
 
-def select_template():
-    print("Fetching available radiology report templates...")
-    templates = get_templates(approved=True, limit=10)  # Fetch a sample set
-    for idx, tpl in enumerate(templates, 1):
-        print(f"{idx}. {tpl.get('title', 'No Title')} (ID: {tpl['id']})")
-    choice = int(input("Select a template by number: ")) - 1
-    selected = templates[choice]
-    return selected['id']
+def read_html_file(file_path):
+    """Read HTML file content with improved error handling."""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        print(f"Error: File not found at {file_path}")
+        return None
+    except Exception as e:
+        print(f"Unexpected error reading file: {str(e)}")
+        return None
 
 def save_json_to_file(json_data, file_path):
     """Save JSON data to file with directory creation."""
@@ -30,6 +35,7 @@ def save_json_to_file(json_data, file_path):
         
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(json_data, f, indent=2)
+        
         print(f"Successfully saved JSON to {file_path}")
     except Exception as e:
         print(f"Error saving JSON file: {str(e)}")
@@ -92,6 +98,7 @@ def get_project_paths():
     """Get standardized project paths."""
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     samples_dir = os.path.join(base_dir, "form_agent_project", "samples")
+    
     return {
         "base": base_dir,
         "samples": samples_dir,
@@ -104,99 +111,117 @@ def main():
     
     try:
         # File paths
-        sample_form_path = os.path.join(paths["samples"], "medical_form.html")
         json_output_path = os.path.join(paths["samples"], "form_structure.json")
         filled_form_path = os.path.join(paths["samples"], "filled_form.json")
-
+        
         # Step 1: Display welcome message
-        print("\n=== Medical Prescription Form Assistant ===")
-        print("This bot will help you complete a medical prescription form.")
+        print("\n=== Medical Form Assistant ===")
+        print("This bot will help you complete a medical form.")
         print("I'll guide you through each field with explanations.")
-        print("For multiple choice questions, you can enter the number of your selection.")
         print("Let's get started!\n")
-
-         # Step 2: Fetch and select template from API
-        print("\n=== Fetching Templates from RadReport API ===")
-        template_id = select_template()
-        print(f"Fetching details for template ID {template_id}...")
-        template_details = get_template_details(template_id)
-        # The template_details may be in RELAX NG XML or similar; you may need to convert it to HTML or JSON.
-        # For now, let's assume you extract the HTML form from the details:
-        html_content = template_details.get('html', None)
-        if not html_content:
-            print("No HTML form found in template details.")
-            return
-
-        # Step 3: Convert HTML to JSON
-        print("\n=== Converting HTML to JSON ===")
-        form_json = convert_html_to_json(html_content)
-        if not form_json:
-            print("Conversion failed: Empty JSON output")
-            return
+        
+        # Step 2: Initialize API and navigator
+        rad_report_api = RadReportAPI()
+        template_navigator = TemplateNavigator(rad_report_api)
+        template_converter = RadReportConverter()
+        
+        # Step 3: Ask user for form source choice
+        print("\n=== Select Form Source ===")
+        print("1. Use a RadReport template")
+        print("2. Use a local HTML form")
+        
+        source_choice = input("Enter your choice (1 or 2): ")
+        
+        form_json = None
+        
+        if source_choice == "1":
+            # Step 3a: Navigate RadReport templates
+            print("\n=== Navigating RadReport Templates ===")
+            template_data = template_navigator.navigate_templates()
             
-        # Step 4: Enhance form with metadata
-        enhanced_form = enhance_form_schema(form_json)
-        save_json_to_file(enhanced_form, json_output_path)
-
-        # Step 5: Initialize components
+            # Convert template to form JSON
+            print("\n=== Converting Template to Form ===")
+            form_json = template_converter.convert_template_to_form(template_data)
+            
+            # Save the template form JSON
+            save_json_to_file(form_json, json_output_path)
+        else:
+            # Step 3b: Use local HTML form
+            print("\n=== Using Local HTML Form ===")
+            sample_form_path = os.path.join(paths["samples"], "medical_form.html")
+            
+            # Read HTML form
+            print("\n=== Reading HTML Form ===")
+            html_content = read_html_file(sample_form_path)
+            if not html_content:
+                return
+            
+            # Convert HTML to JSON
+            print("\n=== Converting HTML to JSON ===")
+            form_json = convert_html_to_json(html_content)
+            if not form_json:
+                print("Conversion failed: Empty JSON output")
+                return
+            
+            # Enhance form with metadata
+            form_json = enhance_form_schema(form_json)
+            save_json_to_file(form_json, json_output_path)
+        
+        # Step 4: Initialize components
         print("\n=== Initializing Components ===")
         history_manager = ChatHistoryManager(history_file=paths["history"])
-        
         model_type = os.getenv("MODEL_TYPE", "ollama").lower()
+        
         if model_type not in ["ollama", "huggingface"]:
             raise ValueError(f"Invalid MODEL_TYPE: {model_type}. Choose 'ollama' or 'huggingface'")
-
+        
         llm_handler = LLMHandler(
             model_type=model_type,
             history_manager=history_manager,
             model_name=os.getenv("MODEL_NAME")  # Get specific model from env
         )
-
-        # Step 6: Initialize the form processor
+        
+        # Step 5: Initialize the form processor
         form_processor = FormProcessor(llm_handler)
-        form_processor.load_form(enhanced_form)
-
-        # Step 7: Process form with iterative user interaction
+        form_processor.load_form(form_json)
+        
+        # Step 6: Process form with iterative user interaction
         print("\n=== Processing Form with Interactive Communication ===")
         filled_form = form_processor.process_form()
-
-        # Step 8: Summarize collected information
+        
+        # Step 7: Summarize collected information
         print("\n=== Form Completion Summary ===")
-        print("Thank you for completing the medical prescription form. Here's a summary of the information provided:")
+        print("Thank you for completing the medical form. Here's a summary of the information provided:")
         
         for field_name, field_data in filled_form.items():
-            display_name = " ".join(word.capitalize() for word in field_name.split('_'))
-            
-            # Handle both dict and string field data
-            if isinstance(field_data, dict):
-                if not field_data.get('hidden', False):
-                    value = field_data.get('value', 'Not provided')
-                    print(f"- {display_name}: {value}")
-            else:
-                print(f"- {display_name}: {field_data}")
-
-
+            if not field_name.startswith('_') and not field_data.get('hidden', False):
+                display_name = " ".join(word.capitalize() for word in field_name.split('_'))
+                value = field_data.get('value', 'Not provided')
+                print(f"- {display_name}: {value}")
         
-        # Step 9: Save results
+        # Step 8: Save results
         print("\n=== Saving Results ===")
         save_json_to_file(filled_form, filled_form_path)
         
-        # Step 10: Convert JSON to HTML
+        # Step 9: Convert JSON to HTML
         print("\n=== Converting JSON to HTML ===")
         html_output_path = os.path.join(paths["samples"], "filled_form.html")
         html_content = convert_json_to_html(filled_form)
+        
         if not html_content:
             print("Conversion failed: Empty HTML output")
             return
+        
         with open(html_output_path, "w", encoding="utf-8") as f:
             f.write(html_content)
         
         print(f"\nOperation completed successfully!")
         print(f"Filled form saved to: {filled_form_path}")
         print(f"HTML version saved to: {html_output_path}")
-
+    
     except Exception as e:
         print(f"\n!!! Critical Error: {str(e)}")
+        
         if isinstance(e, ImportError):
             print("Please check your package installations")
         elif "API token" in str(e):

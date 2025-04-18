@@ -1,108 +1,112 @@
-import html_to_json
+# src/html_converter.py
+from bs4 import BeautifulSoup
 
 def convert_html_to_json(html_content):
-    """
-    Convert HTML form content to JSON format.
-    
-    Args:
-        html_content (str): The HTML content of the form
-        
-    Returns:
-        dict: JSON representation of the form
-    """
+    """Convert HTML form content to JSON format."""
     try:
-        # Convert HTML to JSON
-        json_output = html_to_json.convert(html_content)
+        # Parse HTML using BeautifulSoup
+        soup = BeautifulSoup(html_content, 'html.parser')
         
-        # Extract form fields and their attributes
-        form_data = extract_form_fields(json_output)
+        # Extract form fields
+        form_data = {}
+        
+        # Look for input elements
+        input_tags = soup.find_all('input')
+        for input_tag in input_tags:
+            name = input_tag.get('name') or input_tag.get('id', f'unnamed_input_{len(form_data)}')
+            input_type = input_tag.get('type', 'text')
+            value = input_tag.get('value', '')
+            placeholder = input_tag.get('placeholder', '')
+            
+            # Skip hidden inputs and submit buttons
+            if input_type in ['hidden', 'submit', 'button']:
+                continue
+                
+            # Add to form data
+            form_data[name] = {
+                'type': input_type,
+                'value': value,
+                'placeholder': placeholder,
+                'required': input_tag.get('required') is not None
+            }
+        
+        # Look for textarea elements
+        textarea_tags = soup.find_all('textarea')
+        for textarea_tag in textarea_tags:
+            name = textarea_tag.get('name') or textarea_tag.get('id', f'unnamed_textarea_{len(form_data)}')
+            value = textarea_tag.text.strip()
+            placeholder = textarea_tag.get('placeholder', '')
+            
+            # Add to form data
+            form_data[name] = {
+                'type': 'textarea',
+                'value': value,
+                'placeholder': placeholder,
+                'required': textarea_tag.get('required') is not None
+            }
+        
+        # Look for select elements
+        select_tags = soup.find_all('select')
+        for select_tag in select_tags:
+            name = select_tag.get('name') or select_tag.get('id', f'unnamed_select_{len(form_data)}')
+            
+            # Get options
+            options = []
+            for option_tag in select_tag.find_all('option'):
+                option_value = option_tag.get('value', option_tag.text)
+                option_text = option_tag.text.strip()
+                selected = option_tag.get('selected') is not None
+                options.append({
+                    'value': option_value,
+                    'text': option_text,
+                    'selected': selected
+                })
+                
+            # Add to form data
+            form_data[name] = {
+                'type': 'select',
+                'options': options,
+                'value': '',
+                'required': select_tag.get('required') is not None
+            }
+        
+        # Add labels
+        label_tags = soup.find_all('label')
+        for label_tag in label_tags:
+            for_attr = label_tag.get('for')
+            if for_attr and for_attr in form_data:
+                form_data[for_attr]['label'] = label_tag.text.strip()
+        
+        # If no fields were found, try to extract structured content
+        if not form_data:
+            # Extract sections and fields from structured report
+            sections = soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'p'])
+            for section in sections:
+                # Skip empty sections
+                if not section.text.strip():
+                    continue
+                
+                # Create field name from section text
+                field_name = section.text.strip().lower().replace(' ', '_')[:30]
+                
+                # Avoid duplicate keys
+                counter = 1
+                original_field_name = field_name
+                while field_name in form_data:
+                    field_name = f"{original_field_name}_{counter}"
+                    counter += 1
+                
+                # Add to form data
+                form_data[field_name] = {
+                    'type': 'textarea',
+                    'value': '',
+                    'label': section.text.strip(),
+                    'placeholder': f"Enter {section.text.strip()}",
+                    'required': False
+                }
         
         return form_data
+        
     except Exception as e:
         print(f"Error converting HTML to JSON: {e}")
         return None
-
-def extract_form_fields(json_data):
-    """
-    Extract form fields from the JSON data.
-    
-    Args:
-        json_data (dict): The JSON representation of the HTML
-        
-    Returns:
-        dict: Extracted form fields with their attributes
-    """
-    # Initialize an empty dictionary to store form fields
-    form_fields = {}
-    
-    # Extract forms if they exist
-    forms = json_data.get('form', [])
-    if not forms:
-        # Look for other input elements outside forms
-        extract_inputs_from_json(json_data, form_fields)
-        return form_fields
-    
-    # Process each form
-    for form in forms:
-        extract_inputs_from_json(form, form_fields)
-    
-    return form_fields
-
-def extract_inputs_from_json(json_element, form_fields):
-    """
-    Recursively extract input elements from JSON.
-    
-    Args:
-        json_element (dict): JSON element to extract inputs from
-        form_fields (dict): Dictionary to store extracted fields
-    """
-    # Check for input fields
-    for element_type in ['input', 'textarea', 'select']:
-        if element_type in json_element:
-            for input_elem in json_element[element_type]:
-                # Get attributes
-                attrs = input_elem.get('_attributes', {})
-                field_name = attrs.get('name', attrs.get('id', f'unnamed_{element_type}'))
-                field_type = attrs.get('type', element_type)
-                
-                # Get field value
-                field_value = attrs.get('value', '')
-                
-                # Get label if available
-                label = find_associated_label(json_element, field_name)
-                
-                # Store in form_fields
-                form_fields[field_name] = {
-                    'type': field_type,
-                    'value': field_value,
-                    'label': label,
-                    'attributes': attrs
-                }
-    
-    # Recursively search in other elements
-    for key, value in json_element.items():
-        if isinstance(value, list):
-            for item in value:
-                if isinstance(item, dict):
-                    extract_inputs_from_json(item, form_fields)
-
-def find_associated_label(json_element, field_name):
-    """
-    Find the label associated with a form field.
-    
-    Args:
-        json_element (dict): JSON element to search for labels
-        field_name (str): Name of the field to find label for
-        
-    Returns:
-        str: The label text if found, otherwise an empty string
-    """
-    if 'label' not in json_element:
-        return ""
-    
-    for label in json_element['label']:
-        attrs = label.get('_attributes', {})
-        if attrs.get('for') == field_name:
-            return label.get('_value', '')
-    
-    return ""
