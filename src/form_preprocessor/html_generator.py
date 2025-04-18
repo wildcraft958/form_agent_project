@@ -1,6 +1,10 @@
 import os
 import re
 import html as html_module
+from rich.panel import Panel
+from rich.console import Console
+from rich import print
+
 
 def clean_html_content(raw_html: str) -> str:
     """
@@ -48,7 +52,13 @@ def html_generator():
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(standard_html)
-    print(f"Standard HTML written to: {output_path}")
+    panel = Panel(
+        f"[bold green]✓ Standard HTML written to:[/bold green]\n[cyan]{output_path}[/cyan]",
+        title="[bold green]Success[/bold green]",
+        border_style="green",
+    )
+    console = Console()
+    console.print(panel)
 
 if __name__ == "__main__":
     html_generator()
