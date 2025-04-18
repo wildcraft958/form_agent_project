@@ -73,9 +73,11 @@ class LLMHandler:
         
         raise ImportError("Install 'langchain-huggingface' or 'langchain_community'")
     
+   # Modifications to src/llm_handler.py
+
     def validate_input(self, validation_prompt):
         """
-        Validate user input using LLM reasoning.
+        Validate user input using LLM reasoning with improved medical context.
         
         Args:
             validation_prompt: Dict containing validation requirements and user input
@@ -83,29 +85,37 @@ class LLMHandler:
         Returns:
             Dict with validation result: {is_valid: bool, message: str, processed_value: str}
         """
+        # Add medical context to the validation prompt
+        validation_prompt["domain"] = "medical"
+        validation_prompt["be_lenient"] = True
+        
         # Convert the validation prompt to a string for the LLM
         validation_str = json.dumps(validation_prompt, indent=2)
         
         prompt_template = PromptTemplate(
             template="""You are a medical form validation assistant.
-            
-Please analyze the following user input for a medical form field and determine if it is valid.
-If it's valid, provide any necessary processing (such as formatting or normalization).
-If it's invalid, explain why and provide guidance on what would make it valid.
 
-Validation Request:
-{validation_str}
+                Please analyze the following user input for a medical form field and determine if it is valid.
+                Be lenient with medical terminology and abbreviations - they are often short but valid.
 
-Return your analysis as JSON with the following structure:
-{{
-    "is_valid": true/false,
-    "message": "Explanation message or validation error",
-    "processed_value": "The processed value (if valid) or null (if invalid)"
-}}
+                Consider the context:
+                1. This is a MEDICAL form, so standard medical abbreviations are acceptable
+                2. Short answers can be valid for medical fields (e.g., "MRI" is valid for procedure)
+                3. Prioritize accepting input unless it's clearly nonsensical
 
-JSON Response:""",
-            input_variables=["validation_str"]
-        )
+                Validation Request:
+                {validation_str}
+
+                Return your analysis as JSON with the following structure:
+                {{
+                    "is_valid": true/false,
+                    "message": "Explanation message or validation error",
+                    "processed_value": "The processed value (if valid) or null (if invalid)"
+                }}
+
+                JSON Response:""",
+                        input_variables=["validation_str"]
+                    )
         
         try:
             chain = (
@@ -132,21 +142,21 @@ JSON Response:""",
                         "processed_value": validation_prompt["user_input"] if is_valid else None
                     }
                 else:
-                    # Default to invalid if we can't parse
+                    # Default to accepting the input to avoid frustration
                     return {
-                        "is_valid": False,
-                        "message": "Unable to validate input. Please try again with a clearer response.",
-                        "processed_value": None
+                        "is_valid": True,
+                        "message": "Unable to validate clearly, accepting input.",
+                        "processed_value": validation_prompt["user_input"]
                     }
-                    
         except Exception as e:
             print(f"Error during validation: {e}")
-            # Return default response in case of errors
+            # Return default response in case of errors - be lenient
             return {
-                "is_valid": True,  # Default to accepting to avoid frustrating users
-                "message": "Validation service encountered an error. Proceeding with caution.",
+                "is_valid": True,
+                "message": "Validation service encountered an error. Accepting input.",
                 "processed_value": validation_prompt["user_input"]
             }
+
     
     def process_form(self, form_data, user_query=None):
         """Process form with enhanced type checking."""

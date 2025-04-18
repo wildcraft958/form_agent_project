@@ -1,19 +1,19 @@
 {
   "Procedure": {
     "type": "textarea",
-    "value": "jfafouhewqoufhewqojfgwq'[9fh",
+    "value": "Not specified",
     "placeholder": "",
     "required": false
   },
   "Clinical information": {
     "type": "textarea",
-    "value": "pewqf",
+    "value": "Not specified",
     "placeholder": "",
     "required": false
   },
   "Comparison": {
     "type": "textarea",
-    "value": "bdjagiudagd",
+    "value": "Not specified",
     "placeholder": "",
     "required": false
   },
@@ -91,7 +91,7 @@
         "selected": false
       }
     ],
-    "value": "Clear",
+    "value": "Low volume",
     "required": false
   },
   "Heart": {
@@ -128,7 +128,7 @@
         "selected": false
       }
     ],
-    "value": "Mild",
+    "value": "Severe",
     "required": false
   },
   "Mediastinum": {
@@ -165,7 +165,7 @@
         "selected": false
       }
     ],
-    "value": "Post-op",
+    "value": "Normal",
     "required": false
   },
   "Impression": {
@@ -217,7 +217,7 @@
         "selected": false
       }
     ],
-    "value": "nsakjfdoiahsd",
-    "required": false
+    "value": "Cardiomegaly",
+    "required": true
   }
 }
