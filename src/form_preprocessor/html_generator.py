@@ -1,5 +1,6 @@
 import os
 import re
+import html as html_module
 
 def clean_html_content(raw_html: str) -> str:
     """
@@ -28,14 +29,13 @@ def clean_html_content(raw_html: str) -> str:
     # Remove redundant whitespace
     html = re.sub(r'[ \t]+(\n)', r'\1', html)
     # Optionally, decode HTML entities (uncomment if needed)
-    # import html as html_module
-    # html = html_module.unescape(html)
+    html = html_module.unescape(html)
     return html
 
 def html_generator():
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    input_path = os.path.join(base_dir, "medical_form.html")
-    output_path = os.path.join(base_dir, "medical_form_standard.html")
+    # base_dir = os.path.dirname("samples")
+    input_path = os.path.join("samples", "medical_form.html")
+    output_path = os.path.join("samples", "medical_form_standard.html")
 
     if not os.path.exists(input_path):
         print(f"Input file not found: {input_path}")
